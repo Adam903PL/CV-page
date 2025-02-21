@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import NavBar from "./ui/Navbar";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import clsx from "clsx";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,12 +25,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+setInterval(function() {
+  // body
+}, 1000);
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={clsx(
+          `${geistSans.variable} ${geistMono.variable} antialiased`,
+        )}
       >
-        {children}
+        <NavBar/>
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );

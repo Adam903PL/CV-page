@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSection } from "../lib/zustand/useSection";
 import Link from "next/link";
 import { useLinks } from "../lib/zustand/useLinks";
-import { FaBars, FaTimes,FaHome } from "react-icons/fa";
+import { FaBars, FaTimes, FaHome } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import useMeasure from "react-use-measure";
 
@@ -16,28 +16,32 @@ export default function NavBar() {
   const [ref, { height }] = useMeasure();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 50);
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, []);
 
   useEffect(() => {
-    setActiveSection(window.location.hash);
-
-    const handleHashChange = () => {
+    if (typeof window !== "undefined") {
       setActiveSection(window.location.hash);
-    };
 
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
+      const handleHashChange = () => {
+        setActiveSection(window.location.hash);
+      };
+
+      window.addEventListener("hashchange", handleHashChange);
+      return () => {
+        window.removeEventListener("hashchange", handleHashChange);
+      };
+    }
   }, [setActiveSection]);
 
-  const generateLinkHash = (name: string) =>
+  const generateLinkHash = (name:string) =>
     `#${name.replace(/\s+/g, "").toLowerCase()}`;
 
   return (
@@ -107,7 +111,6 @@ export default function NavBar() {
                         </Link>
                       );
                     })}
-
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -115,7 +118,6 @@ export default function NavBar() {
           </motion.div>
         )}
       </AnimatePresence>
-
 
       {/* Main Navigation */}
       <nav
@@ -126,13 +128,13 @@ export default function NavBar() {
         <div className="container mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-white">
-            <Link 
-              href="#home" 
-              className="text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <FaHome className="text-primary" />
-              PORTFOLIO
-            </Link>
+              <Link 
+                href="#home" 
+                className="text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-2"
+              >
+                <FaHome className="text-primary" />
+                PORTFOLIO
+              </Link>
             </span>
 
             {/* Mobile Menu Button */}

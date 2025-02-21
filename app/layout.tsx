@@ -2,12 +2,16 @@
 "use client"; // Komponent kliencki
 
 import { useEffect } from "react";
-import NavBar from "./ui/Navbar";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 import { Metadata } from "next";// Zaimportuj metadata z serwera
+import dynamic from 'next/dynamic';
 
+const NavBar = dynamic(() => import('./ui/Navbar'), {
+  ssr: false, // Wyłącz SSR dla tego komponentu
+});
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

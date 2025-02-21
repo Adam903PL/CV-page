@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useLinks } from "../lib/zustand/useLinks";
 
 export default function Hero() {
-  const typedElement = useRef(null);
+  // Określamy typ referencji jako HTMLSpanElement lub null
+  const typedElement = useRef<HTMLSpanElement | null>(null);
   const { activeSection, setActiveSection } = useLinks();
 
   useEffect(() => {
@@ -20,15 +21,17 @@ export default function Hero() {
       loop: true,
     };
 
-    const typed = new Typed(typedElement.current, options);
+    // Tworzymy nowy obiekt Typed z referencji, jeśli referencja jest dostępna
+    const typed = typedElement.current ? new Typed(typedElement.current, options) : null;
 
     return () => {
-      typed.destroy();
+      if (typed) {
+        typed.destroy();
+      }
     };
   }, []);
 
   return (
-    // Na dużych ekranach minimalna wysokość zmniejszona do 60vh
     <section className="min-h-[80vh] lg:min-h-[60vh] relative pt-10" id="home">
       <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row items-center">
         {/* Lewa kolumna */}

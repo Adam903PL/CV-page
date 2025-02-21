@@ -55,7 +55,7 @@ const Bubbles = () => {
 
 const Skills = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
 
   const containerVariants = {

@@ -17,10 +17,12 @@ export default {
         buttonEnd: '#00BD95',
         neonGreen: '#00BD95',
         neonCyan: '#00FFC9',
+        brand: "#00BD95",
       },
       // Moje dodane animacje
       animation: {
         "fade-in": "fadeIn 1s ease-in-out",
+        'spin-slow': 'spin 3s linear infinite',
       },
       keyframes: {
         fadeIn: {

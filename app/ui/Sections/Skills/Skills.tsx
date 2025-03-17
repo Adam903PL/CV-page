@@ -1,224 +1,331 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import SkillsSkeleton from "../../skeletons/SkillsSkeleton";
-import { FaCode, FaDesktop, FaDatabase, FaTools } from "react-icons/fa";
+import {
+  FaCode,
+  FaDesktop,
+  FaDatabase,
+  FaTools,
+  FaCircle,
+  FaArrowLeft,
+} from "react-icons/fa";
+import LaptopScreen from "./LaptopScreen";
+import Frontend from "./SkillsSections/Frontend";
+import Backend from "./SkillsSections/Backend";
+import ProgrammingLanguages from "./SkillsSections/ProgrammingLanguages";
+import Tools from "./SkillsSections/Tools";
+import { BackgroundCircles } from "../../BgCircles";
 
-const Bubbles = () => {
-  // Generuj losowe bąbelki
-  const bubbles = Array.from({ length: 15 }).map((_, i) => {
-    const size = Math.random() * 100 + 50; // 50-150px
-    const opacity = Math.random() * 0.3 + 0.2; // 20-50%
-    const left = Math.random() * 100; // 0-100%
-    const delay = Math.random() * 2; // 0-2s
-
-    return (
-      <motion.svg
-        key={i}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
-        className="absolute pointer-events-none"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          left: `${left}%`,
-          top: `${Math.random() * 100}%`,
-          opacity: opacity
-        }}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{
-          delay: delay,
-          duration: 1,
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
-      >
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          fill="#00BD95"
-          stroke="#FFFFFF30"
-          strokeWidth="2"
-        />
-      </motion.svg>
-    );
-  });
-
-  return (
-    <div className="absolute inset-0 overflow-hidden z-0 blur-[2px]">
-      {bubbles}
-    </div>
-  );
+const componentsMap = {
+  programmingLanguages: ProgrammingLanguages,
+  frontend: Frontend,
+  backend: Backend,
+  tools: Tools,
 };
-
 
 const Skills = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const [activeScreen, setActiveScreen] = useState<string | null>(null);
+  const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+  const activeComponentRef = useRef<any>(null);
+  const ActiveComponent = activeScreen ? componentsMap[activeScreen] : null;
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        when: "beforeChildren"
-      }
-    }
+      transition: { staggerChildren: 0.3, when: "beforeChildren" },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 120, 
-        damping: 20 
-      }
-    }
+      transition: { type: "spring", stiffness: 120, damping: 20 },
+    },
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 2000);
+    const timer = setTimeout(() => setIsLoaded(true), 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleGlobalBack = () => {
+    if (activeScreen === "frontend" && activeComponentRef.current) {
+      const handled = activeComponentRef.current.handleBack();
+      if (handled) return;
+    }
+    setActiveScreen(null);
+  };
+
+  const skills = [
+    "React",
+    "React Native",
+    "Python",
+    "Next.Js",
+    "express.js",
+    "JavaScript",
+    "Node.js",
+    "TypeScript",
+    "zustand",
+    "Redux",
+    "Tailwind",
+    "NextAuth",
+    "C++",
+    "Ms Sql",
+    "PostgreSQL",
+    "HTML/CSS",
+    "PHP",
+    "git",
+  ];
+
+  const skillsReverse = [
+    "git",
+    "PHP",
+    "HTML/CSS",
+    "PostgreSQL",
+    "Ms Sql",
+    "C++",
+    "NextAuth",
+    "Tailwind",
+    "Redux",
+    "zustand",
+    "TypeScript",
+    "Node.js",
+    "JavaScript",
+    "express.js",
+    "Next.Js",
+    "Python",
+    "React Native",
+    "React",
+  ];
+
+  const carouselVariants = {
+    animate: {
+      x: ["0%", "-100%"],
+      transition: {
+        x: {
+          repeat: Infinity,
+          duration: 20,
+          ease: "linear",
+        },
+      },
+    },
+  };
+  const carouselVariantsRight = {
+    animate: {
+      x: ["0%", "100%"],
+      transition: {
+        x: {
+          repeat: Infinity,
+          duration: 20,
+          ease: "linear",
+        },
+      },
+    },
+  };
 
   return (
     <section
       id="skills"
-      className="relative overflow-hidden w-full  flex flex-col items-center justify-center bg-[#171c22]"
+      className="relative w-full flex flex-col items-center justify-center bg-[#171c22] py-4"
     >
-      <Bubbles /> 
-      <div className="relative w-[90vw] h-[70vh] flex items-center justify-center">
-        <div className="relative w-[900px] flex flex-col items-center">
-          {/* Ekran laptopa */}
-          <div className="w-full h-[500px] bg-gray-800 border-8 border-gray-700 rounded-t-lg shadow-lg flex flex-col items-center justify-center">
+      <BackgroundCircles />
+
+      <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
+        <div className="flex flex-row">
+          <motion.div
+            className="flex flex-row whitespace-nowrap min-w-full"
+            variants={carouselVariants}
+            initial={{ x: "0%" }}
+            animate="animate"
+          >
+            {skills.map((skill, index) => (
+              <div key={index} className="flex flex-row items-center">
+                <h1 className="text-white text-5xl font-bold px-4 ">{skill}</h1>
+                <div className="w-10 h-[2px] "></div>
+              </div>
+            ))}
+            {skills.map((skill, index) => (
+              <div
+                key={`duplicate-${index}`}
+                className="flex flex-row items-center"
+              >
+                <h1 className="text-white text-5xl font-bold px-4">{skill}</h1>
+                <div className="w-10 h-[2px] "></div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
+        <div className="flex flex-row">
+          <motion.div
+            className="flex flex-row-reverse whitespace-nowrap min-w-full"
+            variants={carouselVariantsRight}
+            initial={{ x: "0%" }}
+            animate="animate"
+          >
+            {skillsReverse.map((skill, index) => (
+              <div key={index} className="flex flex-row items-center">
+                <h1 className="text-white text-5xl font-bold ">{skill}</h1>
+                <div className="w-10 h-[2px] mx-4"></div>
+              </div>
+            ))}
+            {skillsReverse.map((skill, index) => (
+              <div
+                key={`duplicate-${index}`}
+                className="flex flex-row items-center"
+              >
+                <h1 className="text-white text-5xl font-bold">{skill}</h1>
+                <div className="w-10 h-[2px"></div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="relative w-full max-w-[90vw] flex items-center justify-center mt-8">
+        {/* Laptop - widoczny na większych ekranach (breakpoint zmieniony na lg) */}
+        <div className="hidden lg:flex flex-col items-center w-[900px]">
+          <LaptopScreen />
+        </div>
+
+        {/* Telefon - widoczny na mniejszych ekranach (do breakpointu lg) */}
+        <div className="flex lg:hidden flex-col items-center w-full max-w-[350px]">
+          <div className="w-full h-[650px] bg-gray-800 border-8 border-gray-700 my-4 rounded-[2rem] shadow-lg flex flex-col items-center justify-center">
             <div
               ref={ref}
-              className="w-full h-full bg-[#F0F0F0] p-6 flex flex-col items-center text-white overflow-hidden"
+              className="w-full h-full bg-[#F0F0F0] p-4 flex flex-col items-center text-white overflow-hidden rounded-t-[1rem]"
             >
-              {!isLoaded ? (
-                <SkillsSkeleton />
-              ) : (
+              {!activeScreen ? (
                 <motion.div
                   initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
+                  animate={isInView && isLoaded ? "visible" : "hidden"}
                   variants={containerVariants}
                   className="flex flex-col items-center w-full h-full"
                 >
                   <motion.h1
                     variants={itemVariants}
-                    className="text-5xl text-gray-400 text-center mb-10"
+                    className="text-3xl text-gray-400 text-center mb-6"
                   >
                     Explore my skills
                   </motion.h1>
-
-                  <motion.div 
-                    className="grid grid-cols-2 gap-6 max-w-2xl"
+                  <motion.div
+                    className="grid grid-cols-1 gap-4 w-full"
                     variants={containerVariants}
                   >
-                    {/* Programming Languages */}
-                    <motion.div
-                      key="programming"
-                      variants={itemVariants}
-                      className="group relative bg-[rgba(0,189,149,0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[#00BD95] cursor-pointer"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="text-4xl mb-2 text-[#00BD95]"><FaCode /></div>
-                        <span className="text-[#00BD95] text-lg font-semibold">
-                          Programming Languages
-                        </span>
-                      </div>
-                    </motion.div>
-
-                    {/* Frontend */}
-                    <motion.div
-                      key="frontend"
-                      variants={itemVariants}
-                        className="group relative bg-[rgba(217,217,217,0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[#707070] cursor-pointer"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="text-4xl mb-2 text-[#888888]"><FaDesktop /></div>
-                        <span className="text-[#898989] text-lg font-semibold">
-                          Frontend
-                        </span>
-                      </div>
-                    </motion.div>
-
-                    {/* Backend */}
-                    <motion.div
-                      key="backend"
-                      variants={itemVariants}
-                      className="group relative bg-[rgba(217,217,217,0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[#707070] cursor-pointer"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="text-4xl mb-2 text-[#888888]"><FaDatabase /></div>
-                        <span className="text-[#898989] text-lg font-semibold">
-                          Backend
-                        </span>
-                      </div>
-                    </motion.div>
-
-                    {/* Tools */}
-                    <motion.div
-                      key="tools"
-                      variants={itemVariants}
-                      className="group relative bg-[rgba(0,189,149,0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[#00BD95] cursor-pointer"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="text-4xl mb-2 text-[#00BD95]"><FaTools /></div>
-                        <span className="text-[#00BD95] text-lg font-semibold">
-                          Tools
-                        </span>
-                      </div>
-                    </motion.div>
+                    {[
+                      {
+                        id: "programmingLanguages",
+                        icon: FaCode,
+                        label: "Programming Languages",
+                        color: "#00BD95",
+                      },
+                      {
+                        id: "frontend",
+                        icon: FaDesktop,
+                        label: "Frontend",
+                        color: "#888888",
+                      },
+                      {
+                        id: "backend",
+                        icon: FaDatabase,
+                        label: "Backend",
+                        color: "#888888",
+                      },
+                      {
+                        id: "tools",
+                        icon: FaTools,
+                        label: "Tools",
+                        color: "#00BD95",
+                      },
+                    ].map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={itemVariants}
+                        className={`relative bg-[rgba(${
+                          item.color === "#00BD95" ? "0,189,149" : "136,136,136"
+                        },0.4)] rounded-[1rem] w-full h-24 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[6px] hover:border-[${
+                          item.color
+                        }] cursor-pointer`}
+                        onClick={() => setActiveScreen(item.id)}
+                      >
+                        <div className="flex flex-col items-center">
+                          <item.icon
+                            className="text-3xl mb-2"
+                            style={{ color: item.color }}
+                          />
+                          <span
+                            className="text-base font-semibold"
+                            style={{ color: item.color }}
+                          >
+                            {item.label}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
                   </motion.div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 50 }}
+                  className="w-full h-full flex flex-col items-center p-4 relative"
+                >
+                  <button
+                    onClick={handleGlobalBack}
+                    className="absolute top-2 right-2 text-black hover:text-gray-700"
+                  >
+                    <FaArrowLeft className="text-2xl" />
+                  </button>
+                  {activeScreen === "frontend" ? (
+                    <ActiveComponent ref={activeComponentRef} />
+                  ) : (
+                    <ActiveComponent />
+                  )}
+                </motion.div>
+              )}
+              {!isLoaded && (
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center bg-gray-200/50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <motion.div
+                    className="w-16 h-16 rounded-full bg-[#00BD95]/30"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: "easeInOut",
+                    }}
+                  />
                 </motion.div>
               )}
             </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={
+                isInView
+                  ? {
+                      opacity: 1,
+                      scale: 1,
+                      transition: { delay: 0.8, type: "spring" },
+                    }
+                  : {}
+              }
+              className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center my-4"
+            >
+              <FaCircle className="text-gray-500 text-2xl" />
+            </motion.div>
           </div>
-
-          {/* Klawiatura */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { 
-              opacity: 1, 
-              y: 0,
-              transition: { 
-                delay: 0.8, 
-                type: "spring", 
-                stiffness: 100, 
-                damping: 20 
-              } 
-            } : {}}
-            className="w-[80%] h-[100px] bg-gray-700 rounded-b-lg shadow-lg flex items-center justify-center gap-4"
-          >
-            <div className="w-3/4 h-12 bg-gray-600 rounded-md flex items-center justify-center">
-              <motion.div 
-                className="grid grid-cols-10 gap-1"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-              >
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <div 
-                    key={i} 
-                    className="w-4 h-4 bg-gray-500 rounded-sm"
-                  />
-                ))}
-              </motion.div>
-            </div>
-            <motion.div 
-              className="w-24 h-16 bg-gray-600 rounded-md"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 1.4, type: "spring" }}
-            />
-          </motion.div>
         </div>
       </div>
     </section>

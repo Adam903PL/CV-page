@@ -69,3 +69,34 @@ body {
 }
 
 .r-hex-inner:hover { opacity: 1; }
+
+
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 4px rgba(66, 153, 225, 0.5));
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+.glow-container {
+  background: linear-gradient(
+    45deg,
+    #00bd95 0%,
+    #00FFC9 50%,
+    #00bd95 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-pulse 3s ease infinite;
+}
+@keyframes gradient-pulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,13 +1,35 @@
 "use client";
+
 import { FaDownload } from "react-icons/fa";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import Link from "next/link";
 import { useLinks } from "../lib/zustand/useLinks";
+import { motion } from "framer-motion";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
+};
+
+const buttonVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.4 } },
+};
 
 export default function Hero() {
-  // Określamy typ referencji jako HTMLSpanElement lub null
   const typedElement = useRef<HTMLSpanElement | null>(null);
   const { activeSection, setActiveSection } = useLinks();
 
@@ -21,7 +43,6 @@ export default function Hero() {
       loop: true,
     };
 
-    // Tworzymy nowy obiekt Typed z referencji, jeśli referencja jest dostępna
     const typed = typedElement.current ? new Typed(typedElement.current, options) : null;
 
     return () => {
@@ -32,10 +53,21 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="min-h-[80vh] lg:min-h-[60vh] relative pt-10" id="home">
-      <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row items-center">
+    <section
+      className="min-h-[80vh] lg:min-h-[80vh] relative pt-10 flex justify-center"
+      id="home"
+    >
+      <motion.div
+        className="container mx-auto px-6 py-6 flex flex-col md:flex-row items-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Lewa kolumna */}
-        <div className="md:w-1/2 flex justify-center">
+        <motion.div
+          className="md:w-1/2 flex justify-center"
+          variants={imageVariants}
+        >
           <div className="r-hex">
             <div className="r-hex-inner relative w-full h-full">
               <Image
@@ -47,10 +79,10 @@ export default function Hero() {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Prawa kolumna */}
-        <div className="md:w-1/2 mt-8 md:mt-0">
+        <motion.div className="md:w-1/2 mt-8 md:mt-0" variants={textVariants}>
           <div>
             <span className="text-xl mb-2 flex font-bold">
               <p>Hello,</p>
@@ -70,24 +102,31 @@ export default function Hero() {
           </p>
 
           <div className="flex space-x-4">
-            <Link
-              onClick={() =>
-                setActiveSection(
-                  `#${"contact".replace(/\s+/g, "").toLowerCase()}`
-                )
-              }
-              href="#contact"
-              className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-3 rounded-full font-bold"
+            <motion.button variants={buttonVariants} 
+                        className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-3 rounded-full font-bold flex items-center"
             >
-              Contact With Me
-            </Link>
-            <button className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-3 rounded-full font-bold flex items-center">
+              <Link
+                onClick={() =>
+                  setActiveSection(
+                    `#${"contact".replace(/\s+/g, "").toLowerCase()}`
+                  )
+                }
+                href="#contact"
+                className=""
+              >
+                Contact With Me
+              </Link>
+            </motion.button>
+            <motion.button
+              variants={buttonVariants}
+              className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-2 rounded-full font-bold flex items-center"
+            >
               <FaDownload />
               CV
-            </button>
+            </motion.button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

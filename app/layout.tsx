@@ -8,10 +8,10 @@ import "./globals.css";
 import clsx from "clsx";
 import { Metadata } from "next";// Zaimportuj metadata z serwera
 import dynamic from 'next/dynamic';
-
-const NavBar = dynamic(() => import('./ui/Navbar'), {
-  ssr: false, // Wyłącz SSR dla tego komponentu
-});
+import NavBar from "./ui/Navbar"
+// const NavBar = dynamic(() => import('./ui/Navbar'), {
+//   ssr: false, // Wyłącz SSR dla tego komponentu
+// });
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,14 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Twój kod
-      console.log("Interval running...");
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <html lang="en">

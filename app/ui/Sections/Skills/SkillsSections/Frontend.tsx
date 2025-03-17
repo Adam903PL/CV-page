@@ -8,49 +8,53 @@ import NextIcon from "@/public/img/icons/nextjs-icon.svg";
 import ReactNativeIcon from "@/public/img/icons/react-native-app-icon.svg";
 import ReactIcon from "@/public/img/icons/react-js-icon.svg";
 import NextJsIcon from "@/public/img/icons/nextjs-icon.svg";
-
+import LottieFilesIcon from "@/public/img/icons/lottiefiles.svg";
+import { FaInfoCircle } from "react-icons/fa";
 const skillsArr = [
   {
-    name: "NextJs",
+    name: "React",
+    icon: ReactIcon,
+    percentage: 70,
+    details:
+      "Hooks architecture, Context API, performance optimization, Concurrent Mode.",
+  },
+  {
+    name: "Next.js",
     icon: NextJsIcon,
-    percentage: 90,
-    details: "Tworzenie serwerów, REST API, WebSockets.",
+    percentage: 70,
+    details: "App Router, SSR/ISR, API routes, middleware, and server actions.",
   },
   {
-    name: "Tailwind",
+    name: "React Native",
+    icon: ReactNativeIcon,
+    percentage: 60,
+    details: "Cross-platform development, native modules, gesture handling.",
+  },
+  {
+    name: "Lottie",
+    icon: LottieFilesIcon,
+    percentage: 70,
+    details:
+      "Complex animations, After Effects integration, dynamic SVG manipulation.",
+  },
+  {
+    name: "Tailwind CSS",
     icon: TailwindIcon,
-    percentage: 95,
-    details: "Zaawansowane style, utility-first approach, animacje.",
+    percentage: 80,
+    details: "JIT compiler, custom plugins, responsive design patterns.",
   },
   {
-    name: "Redux",
+    name: "Redux Toolkit",
     icon: ReduxIcon,
-    percentage: 85,
-    details: "Stan aplikacji, Redux Toolkit, middleware.",
+    percentage: 60,
+    details: "Slice patterns, RTK Query, middleware configuration.",
   },
   {
     name: "Zustand",
     icon: ZustandIcon,
     percentage: 90,
-    details: "Prosty i wydajny state management, reactivity.",
-  },
-  {
-    name: "Next.Js",
-    icon: NextIcon,
-    percentage: 88,
-    details: "Routing, Server Components, SSR, ISR, API Routes.",
-  },
-  {
-    name: "React Native",
-    icon: ReactNativeIcon,
-    percentage: 80,
-    details: "Komponenty natywne, stylowanie, animacje.",
-  },
-  {
-    name: "React",
-    icon: ReactIcon,
-    percentage: 92,
-    details: "Hooks, Context API, efektywność renderowania.",
+    details:
+      "Simplified state management, reactive stores, TypeScript integration.",
   },
 ];
 
@@ -68,7 +72,7 @@ const ProgressBar = ({ percentage }: { percentage: number }) => (
 const Frontend = forwardRef((props, ref) => {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const skill = skillsArr.find((s) => s.name === selectedSkill);
-
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   useImperativeHandle(ref, () => ({
     handleBack: () => {
       if (selectedSkill) {
@@ -101,6 +105,44 @@ const Frontend = forwardRef((props, ref) => {
                   className="flex flex-col items-center space-y-2 p-3 bg-white rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
+                  {/* Kontener dla ikony info */}
+                  <div className="w-full flex justify-end pr-1">
+                    <div
+                      className="cursor-help relative"
+                      onMouseEnter={() => setHoveredSkill(skill.name)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-500" />
+
+                      {hoveredSkill === skill.name && (
+                        <div className="absolute top-full right-0 mt-1 overflow-hidden">
+                          <motion.div
+                            initial={{
+                              opacity: 0,
+                              scaleX: 0,
+                              transformOrigin: "right center",
+                            }}
+                            animate={{
+                              opacity: 1,
+                              scaleX: 1,
+                            }}
+                            exit={{
+                              opacity: 0,
+                              scaleX: 0,
+                            }}
+                            transition={{
+                              type: "tween",
+                              duration: 0.3,
+                            }}
+                            className="bg-gray-800 text-white text-xs px-3 py-[3px] rounded-full shadow-lg z-10 whitespace-nowrap"
+                          >
+                            Data can be redrawn: AI generated
+                          </motion.div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                   <div className="w-10 h-10 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
                     <Image
                       src={skill.icon}

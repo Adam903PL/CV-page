@@ -1,15 +1,20 @@
+"use client";
+
 import React from "react";
-import { FaPhone, FaCode } from "react-icons/fa";
+import { FaPhone, FaCode, FaGithub } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
+import { Tooltip } from "react-tooltip";
+import useSWR from "swr";
+import Link from "next/link";
+
+// Fetcher dla SWR
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
 
 const itemVariants = {
@@ -37,8 +42,8 @@ const buttonVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
   hover: {
     scale: 1.05,
-    boxShadow: "0px 0px 8px rgba(0, 189, 149, 0.8)",
-    transition: { yoyo: Infinity, duration: 0.8 },
+    boxShadow: "0px 0px 12px rgba(0, 189, 149, 0.8)",
+    transition: { duration: 0.3 },
   },
   tap: { scale: 0.95 },
 };
@@ -47,7 +52,7 @@ const jsonVariants = {
   hidden: { opacity: 0, x: 50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
   hover: {
-    boxShadow: "0px 0px 12px rgba(0, 189, 149, 0.5)",
+    boxShadow: "0px 0px 15px rgba(0, 189, 149, 0.5)",
     transition: { duration: 0.3 },
   },
 };
@@ -73,89 +78,85 @@ const statVariants = {
 const waveVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
-    opacity: 0.1,
+    opacity: 0.15,
     scale: 1,
     transition: {
       duration: 1.5,
       ease: "easeInOut",
       repeat: Infinity,
-      repeatType: "reverse" as const,
-    },
-  },
-};
-const carouselVariants = {
-  animate: {
-    x: ["0%", "-100%"], // Starts from full visibility
-    transition: {
-      x: {
-        repeat: Infinity,
-        duration: 20, // Shortened animation time
-        ease: "linear",
-      },
-    },
-  },
-};
-const carouselVariantsRight = {
-  animate: {
-    x: ["0%", "100%"], // Moving to the right
-    transition: {
-      x: {
-        repeat: Infinity,
-        duration: 20, // Adjust the time
-        ease: "linear",
-      },
+      repeatType: "reverse",
     },
   },
 };
 
-const AboutMe = () => {
+const skillVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+  hover: { scale: 1.1, transition: { duration: 0.2 } },
+};
+
+const githubCardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.8, type: "spring", bounce: 0.4 },
+  },
+  hover: {
+    scale: 1.05,
+    boxShadow: "0px 0px 20px rgba(0, 189, 149, 0.7)",
+    transition: { duration: 0.3 },
+  },
+};
+
+const repoButtonVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  hover: {
+    scale: 1.05,
+    backgroundColor: "#00bd95",
+    transition: { duration: 0.3 },
+  },
+  tap: { scale: 0.95 },
+};
+
+const AboutMe: React.FC = () => {
   const title = "Adam Pukaluk - Backend Developer";
   const skills = [
     "React",
     "React Native",
     "Python",
-    "Next.Js",
-    "express.js",
+    "Next.js",
+    "Express.js",
     "JavaScript",
     "Node.js",
     "TypeScript",
-    "zustand",
+    "Zustand",
     "Redux",
     "Tailwind",
     "NextAuth",
     "C++",
-    "Ms Sql",
+    "MS SQL",
     "PostgreSQL",
     "HTML/CSS",
     "PHP",
-    "git",
+    "Git",
   ];
 
-  const skillsReverse = [
-    "git",
-    "PHP",
-    "HTML/CSS",
-    "PostgreSQL",
-    "Ms Sql",
-    "C++",
-    "NextAuth",
-    "Tailwind",
-    "Redux",
-    "zustand",
-    "TypeScript",
-    "Node.js",
-    "JavaScript",
-    "express.js",
-    "Next.Js",
-    "Python",
-    "React Native",
-    "React",
-  ];
+  // Fetch danych z GitHuba przy użyciu SWR dla wszystkich repozytoriów
+  const { data: reposData, error: reposError } = useSWR(
+    "https://api.github.com/users/Adam903PL/repos?per_page=100",
+    fetcher
+  );
+
   return (
-    <section id="aboutme" className="relative overflow-hidden">
-      {/* Background with subtle wave animation */}
+    <section
+      id="aboutme"
+      className="relative overflow-hidden bg-[#171c22] min-h-screen"
+    >
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#00bd95]/10 to-[#00FFC9]/10 rounded-full blur-3xl"
+        className="absolute inset-0 bg-gradient-to-br from-[#00bd95]/15 to-[#00FFC9]/15 rounded-full blur-3xl"
         variants={waveVariants}
         initial="hidden"
         whileInView="visible"
@@ -163,27 +164,21 @@ const AboutMe = () => {
       />
 
       <motion.div
-        className="relative bg-[#171C22] py-12 px-6 lg:px-12"
+        className="relative py-16 px-6 lg:px-12"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="max-w-6xl mx-auto flex flex-row flex-wrap justify-center items-start gap-12">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row justify-center items-start gap-12">
           {/* Left section */}
           <motion.div
-            className="flex flex-col gap-8 max-w-md"
+            className="flex flex-col gap-8 w-full lg:w-1/2"
             variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
           >
             <motion.h1
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
+              className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight"
               variants={textVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
             >
               {title.split("").map((char, index) => (
                 <motion.span key={index} variants={letterVariants}>
@@ -191,63 +186,47 @@ const AboutMe = () => {
                 </motion.span>
               ))}
             </motion.h1>
-            <motion.p
-              className="text-gray-300 text-base md:text-lg leading-relaxed"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              Hi! I’m Adam, a 15-year-old programmer passionate about backend development. 
-              For 2 years, I’ve been coding in JavaScript and Python, creating applications 
-              using Express.js and Next.js. My goal is to land an internship that will help 
-              me spread my wings in the IT world.
-            </motion.p>
-            <motion.div
-              className="flex flex-row gap-4"
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Hi! I’m Adam, a 15-year-old programmer with a passion for backend
+              development. Over the past 2 years, I’ve been coding in JavaScript
+              and Python, building applications with Express.js and Next.js. My
+              dream? Landing an internship to soar higher in the IT world!
+            </p>
+            <motion.div className="flex flex-row gap-4" variants={itemVariants}>
               <motion.a
                 href="tel:695031104"
-                className="flex items-center justify-center gap-2 bg-[#20272F] text-white px-6 py-3 rounded-full shadow-md"
+                className="flex items-center justify-center gap-2 bg-[#20272F] text-white px-6 py-3 rounded-full shadow-lg"
                 variants={buttonVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
                 whileHover="hover"
                 whileTap="tap"
               >
                 <FaPhone className="text-[#00bd95] w-5 h-5" />
                 <span className="font-semibold text-lg">695-031-104</span>
               </motion.a>
-              <motion.button
-                className="bg-gradient-to-b from-[#00bd95] to-[#00FFC9] text-white font-semibold px-6 py-3 rounded-full shadow-md hover:opacity-90 transition-opacity"
-                variants={buttonVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                My Links
-              </motion.button>
+
+              <Link href={`https://bento.me/adam-pukaluk`}>
+                <motion.button
+                  className="bg-gradient-to-b from-[#00bd95] to-[#00FFC9] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:opacity-90"
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  My Links
+                </motion.button>
+              </Link>
             </motion.div>
             <motion.div
-              className="bg-[#161B22] p-4 rounded-lg border border-[#30363D] shadow-lg"
+              className="bg-[#161B22] p-5 rounded-xl border border-[#30363D] shadow-xl"
               variants={jsonVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
               whileHover="hover"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <FaCode className="text-[#00bd95] w-5 h-5" />
-                <span className="text-white font-semibold">aboutMe.json</span>
+              <div className="flex items-center gap-2 mb-3">
+                <FaCode className="text-[#00bd95] w-6 h-6" />
+                <span className="text-white font-semibold text-lg">
+                  aboutMe.json
+                </span>
               </div>
-              <pre className="text-gray-300 text-sm overflow-x-auto font-mono">
+              <pre className="text-gray-300 text-sm font-mono">
                 <span className="text-blue-400">"aboutMe"</span>: {"{"}
                 {Object.entries({
                   name: "Adam Pukaluk",
@@ -257,189 +236,172 @@ const AboutMe = () => {
                   goal: "Internship & Growth",
                 }).map(([key, value]) => (
                   <div key={key} className="ml-4">
-                    <span className="text-purple-400">"{key}"</span>
-                    <span className="text-white">: </span>
+                    <span className="text-purple-400">"{key}"</span>:{" "}
                     {typeof value === "number" ? (
                       <span className="text-green-400">{value}</span>
                     ) : (
                       <span className="text-yellow-300">"{value}"</span>
                     )}
-                    <span className="text-white">,</span>
+                    ,
                   </div>
                 ))}
                 <span>{"}"}</span>
               </pre>
             </motion.div>
-          </motion.div>
 
-          {/* Right section */}
-          <motion.div
-            className="flex flex-col gap-8 max-w-2xl"
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
+            {/* Experience - przeniesiony pod aboutMe.json */}
             <motion.div
-              className="bg-[#161B22] p-4 rounded-lg border border-[#30363D] shadow-lg"
-              variants={jsonVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              whileHover="hover"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <FaCode className="text-[#00bd95] w-5 h-5" />
-                <span className="text-white font-semibold">skills.json</span>
-              </div>
-              <pre className="text-gray-300 text-sm overflow-x-auto font-mono">
-                <span className="text-blue-400">"skills"</span>: [
-                <div className="ml-4 grid grid-cols-2 gap-x-4">
-                  {skills.map((skill, index) => (
-                    <span key={index} className="text-yellow-300">
-                      "{skill}"{index < skills.length - 1 && ","}
-                    </span>
-                  ))}
-                </div>
-                ]
-              </pre>
-            </motion.div>
-
-            <motion.div
-              className="bg-[#161B22] p-4 rounded-lg border border-[#30363D] shadow-lg text-center"
+              className="bg-[#161B22] p-5 rounded-xl border border-[#30363D] shadow-xl text-center"
               variants={counterVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
             >
-              <h3 className="text-white font-semibold mb-2 flex items-center justify-center gap-2">
-                <FaCode className="text-[#00bd95] w-5 h-5" />
+              <h3 className="text-white font-semibold text-lg mb-3 flex items-center justify-center gap-2">
+                <FaCode className="text-[#00bd95] w-6 h-6" />
                 Experience
               </h3>
               <motion.div
-                className="text-[#00bd95] text-3xl font-bold"
+                className="text-[#00bd95] text-4xl font-bold"
                 initial={{ scale: 0.8 }}
                 whileInView={{ scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
                 <CountUp end={2} duration={2.5} decimals={0} /> years
               </motion.div>
               <p className="text-gray-300 text-sm mt-2">
-                I’ve been coding since 2023 and I’m still learning!
+                Coding since 2023 and still leveling up!
               </p>
             </motion.div>
+          </motion.div>
 
-            {/* Quick stats */}
+          {/* Right section */}
+          <motion.div
+            className="flex flex-col gap-8 w-full lg:w-1/2"
+            variants={itemVariants}
+          >
+            {/* GitHub Stats - na górze prawej kolumny, z mniejszą wysokością */}
             <motion.div
-              className="bg-[#161B22] p-4 rounded-lg border border-[#30363D] shadow-lg text-center"
-              variants={itemVariants}
+              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl" // Zmniejszony padding (p-4 zamiast p-5)
+              variants={githubCardVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              whileHover="hover"
+              viewport={{ once: true }}
             >
-              <h3 className="text-white font-semibold mb-4 flex items-center justify-center gap-2">
-                <FaCode className="text-[#00bd95] w-5 h-5" />
+              <h3 className="text-white font-semibold text-lg mb-3 flex items-center justify-center gap-2">
+                <FaGithub className="text-[#00bd95] w-6 h-6" />
+                GitHub Stats
+              </h3>
+              {reposError && (
+                <p className="text-red-400">Failed to load GitHub data</p>
+              )}
+              {!reposData && !reposError && (
+                <p className="text-gray-300">Loading...</p>
+              )}
+              {reposData && (
+                <div className="flex flex-col gap-3 max-h-48 overflow-y-auto">
+                  {" "}
+                  {/* Zmniejszona wysokość (max-h-48) */}
+                  <p className="text-gray-300 text-sm">
+                    Total Public Repos:{" "}
+                    <span className="text-[#00bd95] font-bold">
+                      {reposData.length}
+                    </span>
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {reposData.map((repo) => (
+                      <motion.div
+                        key={repo.id}
+                        className="flex items-center justify-between bg-[#20272F] p-2 rounded-lg"
+                        variants={itemVariants}
+                      >
+                        <span className="text-white text-sm truncate">
+                          {repo.name}
+                        </span>
+                        <motion.a
+                          href={repo.html_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-[#00bd95] text-white px-3 py-1 rounded-full text-sm font-medium"
+                          variants={repoButtonVariants}
+                          initial="hidden"
+                          animate="visible"
+                          whileHover="hover"
+                          whileTap="tap"
+                        >
+                          Visit
+                        </motion.a>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+
+            <motion.div
+              className="bg-[#161B22] p-5 rounded-xl border border-[#30363D] shadow-xl"
+              variants={jsonVariants}
+              whileHover="hover"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <FaCode className="text-[#00bd95] w-6 h-6" />
+                <span className="text-white font-semibold text-lg">
+                  skills.json
+                </span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {skills.map((skill, index) => (
+                  <motion.span
+                    key={index}
+                    className="text-yellow-300 bg-[#20272F] px-3 py-1 rounded-full text-sm font-medium cursor-pointer"
+                    variants={skillVariants}
+                    whileHover="hover"
+                    data-tooltip-id="skill-tooltip"
+                    data-tooltip-content={`Proficient in ${skill}`}
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+              <Tooltip
+                id="skill-tooltip"
+                place="top"
+                className="bg-[#00bd95] text-white rounded-md"
+              />
+            </motion.div>
+
+            {/* Quick Stats - pod GitHub Stats */}
+            <motion.div
+              className="bg-[#161B22] p-5 rounded-xl border border-[#30363D] shadow-xl text-center"
+              variants={itemVariants}
+            >
+              <h3 className="text-white font-semibold text-lg mb-4 flex items-center justify-center gap-2">
+                <FaCode className="text-[#00bd95] w-6 h-6" />
                 Quick Stats
               </h3>
-              <div className="grid grid-cols-3 gap-4">
-                <motion.div
-                  variants={statVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                >
-                  <div className="text-[#00bd95] text-2xl font-bold">
-                    <CountUp end={10} duration={2.5} />+
-                  </div>
-                  <p className="text-gray-300 text-sm">Projects</p>
-                </motion.div>
-                <motion.div
-                  variants={statVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="text-[#00bd95] text-2xl font-bold">
-                    <CountUp end={18} duration={2.5} />
-                  </div>
-                  <p className="text-gray-300 text-sm">Technologies</p>
-                </motion.div>
-                <motion.div
-                  variants={statVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <div className="text-[#00bd95] text-2xl font-bold">
-                    <CountUp end={700} duration={2.5} />+
-                  </div>
-                  <p className="text-gray-300 text-sm">Coding Hours</p>
-                </motion.div>
+              <div className="grid grid-cols-3 gap-6">
+                {[
+                  { value: 10, label: "Projects", suffix: "+" },
+                  { value: 18, label: "Technologies" },
+                  { value: 700, label: "Coding Hours", suffix: "+" },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    variants={statVariants}
+                    transition={{ delay: index * 0.2 }}
+                    whileHover={{ scale: 1.05, rotateX: 5, rotateY: 5 }}
+                  >
+                    <div className="text-[#00bd95] text-2xl font-bold">
+                      <CountUp end={stat.value} duration={2.5} />
+                      {stat.suffix}
+                    </div>
+                    <p className="text-gray-300 text-sm">{stat.label}</p>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </motion.div>
         </div>
       </motion.div>
-
-      <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
-          <div className="flex flex-row">
-            <motion.div
-              className="flex flex-row whitespace-nowrap min-w-full" // Ensures elements stay in one line
-              variants={carouselVariants}
-              initial={{ x: "0%" }}
-              animate="animate"
-            >
-              {skills.map((skill, index) => (
-                <div key={index} className="flex flex-row items-center">
-                  <h1 className="text-white text-5xl font-bold ">{skill}</h1>
-                  <div className="w-20 h-[2px] bg-white mx-4"></div>
-                </div>
-              ))}
-              {/* Duplication of the list to create a continuity effect */}
-              {skills.map((skill, index) => (
-                <div
-                  key={`duplicate-${index}`}
-                  className="flex flex-row items-center"
-                >
-                  <h1 className="text-white text-5xl font-bold">{skill}</h1>
-                  <div className="w-20 h-[2px] bg-white"></div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      
-        <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
-          <div className="flex flex-row">
-            <motion.div
-              className="flex flex-row-reverse whitespace-nowrap min-w-full" // Ensures elements stay in one line
-              variants={carouselVariantsRight}
-              initial={{ x: "0%" }}
-              animate="animate"
-            >
-              {skillsReverse.map((skill, index) => (
-                <div key={index} className="flex flex-row items-center">
-                  <h1 className="text-white text-5xl font-bold ">{skill}</h1>
-                  <div className="w-20 h-[2px] bg-white mx-4"></div>
-                </div>
-              ))}
-              {/* Duplication of the list to create a continuity effect */}
-              {skillsReverse.map((skill, index) => (
-                <div
-                  key={`duplicate-${index}`}
-                  className="flex flex-row items-center"
-                >
-                  <h1 className="text-white text-5xl font-bold">{skill}</h1>
-                  <div className="w-20 h-[2px] bg-white"></div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-
     </section>
   );
 };

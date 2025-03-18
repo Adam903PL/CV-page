@@ -23,7 +23,6 @@ const linkVariants = {
   hover: { scale: 1.05, color: "#00bd95", transition: { duration: 0.2 } },
 };
 
-
 export default function NavBar() {
   const { sections } = useSection();
   const { activeSection, setActiveSection } = useLinks();
@@ -41,6 +40,7 @@ export default function NavBar() {
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, []);
+
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     const handleScroll = () => {
@@ -56,6 +56,7 @@ export default function NavBar() {
       clearTimeout(timeout);
     };
   }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setActiveSection(window.location.hash);
@@ -100,7 +101,7 @@ export default function NavBar() {
                     initial={{ opacity: 0, maxWidth: 0 }}
                     animate={{ opacity: 1, maxWidth: 500 }}
                     exit={{ opacity: 0, maxWidth: 0 }}
-                    className="flex items-center gap-6 pr-[43rem] overflow-hidden whitespace-nowrap bg-gradient-to-l from-primary/20 via-primary/20 via-80% to-transparent rounded-full"
+                    className="flex items-center gap-6 pr-6 sm:pr-12 md:pr-20 lg:pr-[43rem] overflow-hidden whitespace-nowrap bg-gradient-to-l from-primary/20 via-primary/20 via-80% to-transparent rounded-full"
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <Link
@@ -156,15 +157,15 @@ export default function NavBar() {
           isScrolled ? "lg:-translate-y-full" : ""
         }`}
       >
-        <div className="container mx-auto px-8 py-6">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-6">
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-white">
+            <span className="text-xl sm:text-2xl font-bold text-white">
               <Link
                 href="#home"
-                className="text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-2"
+                className="text-xl sm:text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-2"
               >
                 <FaHome className="text-primary" />
-                PORTFOLIO
+                <span className=" xs:inline">PORTFOLIO</span>
               </Link>
             </span>
 
@@ -172,7 +173,8 @@ export default function NavBar() {
             <div className="block lg:hidden">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="text-2xl text-white focus:outline-none"
+                className="text-xl sm:text-2xl text-white focus:outline-none p-2"
+                aria-label="Toggle navigation menu"
               >
                 {menuOpen ? <FaTimes /> : <FaBars />}
               </button>
@@ -229,7 +231,7 @@ export default function NavBar() {
                             setActiveSection(linkHash);
                             setMenuOpen(false);
                           }}
-                          className={`font-semibold ${
+                          className={`block px-2 py-1 font-semibold ${
                             isActive ? "text-[#00bd95]" : "text-white"
                           }`}
                         >

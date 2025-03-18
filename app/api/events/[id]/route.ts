@@ -4,8 +4,10 @@ import { EventsPutDTO } from "../dto/event-put-dto";
 import { PatchEventsDTO } from "../dto/events-patch-dto";
 import { validateDto } from "../validate";
 
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
-  const event = events.find((e) => e.id === context.params.id);
+type Params = { params: { id: string } };
+
+export async function GET(req: NextRequest, { params }: Params) {
+  const event = events.find((e) => e.id === params.id);
 
   if (!event) {
     return NextResponse.json({ error: "Event not found" }, { status: 404 });
@@ -14,7 +16,7 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
   return NextResponse.json({ message: "Selected event", event });
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: Params) {
   try {
     const eventIndex = events.findIndex((e) => e.id === params.id);
 
@@ -42,7 +44,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: Params) {
   try {
     const eventIndex = events.findIndex((e) => e.id === params.id);
 
@@ -70,7 +72,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: Params) {
   const eventIndex = events.findIndex((e) => e.id === params.id);
 
   if (eventIndex === -1) {

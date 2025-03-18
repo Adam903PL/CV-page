@@ -33,10 +33,7 @@ export async function POST(request: Request) {
       capacity: validatedData.capacity,
     };
 
-    const { errors: errors2, validatedData: validatedData2 } = await validateDto(CreateEventsDTO, newEvent);
-    if (errors2) {
-      return NextResponse.json({ errors: errors2 }, { status: 400 });
-    }
+
 
     events.push(newEvent);
 

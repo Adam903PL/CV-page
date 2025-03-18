@@ -14,7 +14,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const methods = ["GET", "POST", "PUT", "PATCH", "DELETE"] as const;
 export type HttpMethod = (typeof methods)[number];
 
-const apiCategories = ["events", "orders", "passes", "product", "todos"] as const;
+const apiCategories = ["events", "orders"] as const;
 export type ApiCategory = (typeof apiCategories)[number];
 
 const ApiTester = () => {

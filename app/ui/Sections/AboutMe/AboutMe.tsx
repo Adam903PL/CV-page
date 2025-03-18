@@ -122,7 +122,7 @@ const repoButtonVariants = {
 };
 
 const AboutMe: React.FC = () => {
-  const title = "Adam Pukaluk - Backend Developer";
+  const title = "Adam Pukaluk - FullStack Developer";
   const skills = [
     "React",
     "React Native",
@@ -187,8 +187,8 @@ const AboutMe: React.FC = () => {
               ))}
             </motion.h1>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Hi! I’m Adam, a 15-year-old programmer with a passion for backend
-              development. Over the past 2 years, I’ve been coding in JavaScript
+              Hi! I'm Adam, a 15-year-old programmer with a passion for backend
+              and frontend development. Over the past 2 years, I've been coding in JavaScript
               and Python, building applications with Express.js and Next.js. My
               dream? Landing an internship to soar higher in the IT world!
             </p>
@@ -230,7 +230,7 @@ const AboutMe: React.FC = () => {
                 <span className="text-blue-400">"aboutMe"</span>: {"{"}
                 {Object.entries({
                   name: "Adam Pukaluk",
-                  role: "Backend Developer",
+                  role: "FullStack Developer",
                   age: 15,
                   experience: "2 years",
                   goal: "Internship & Growth",
@@ -280,7 +280,7 @@ const AboutMe: React.FC = () => {
           >
             {/* GitHub Stats - na górze prawej kolumny, z mniejszą wysokością */}
             <motion.div
-              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl" // Zmniejszony padding (p-4 zamiast p-5)
+              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl" 
               variants={githubCardVariants}
               initial="hidden"
               whileInView="visible"
@@ -299,8 +299,6 @@ const AboutMe: React.FC = () => {
               )}
               {reposData && (
                 <div className="flex flex-col gap-3 max-h-48 overflow-y-auto">
-                  {" "}
-                  {/* Zmniejszona wysokość (max-h-48) */}
                   <p className="text-gray-300 text-sm">
                     Total Public Repos:{" "}
                     <span className="text-[#00bd95] font-bold">
@@ -308,30 +306,34 @@ const AboutMe: React.FC = () => {
                     </span>
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {reposData.map((repo) => (
-                      <motion.div
-                        key={repo.id}
-                        className="flex items-center justify-between bg-[#20272F] p-2 rounded-lg"
-                        variants={itemVariants}
-                      >
-                        <span className="text-white text-sm truncate">
-                          {repo.name}
-                        </span>
-                        <motion.a
-                          href={repo.html_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-[#00bd95] text-white px-3 py-1 rounded-full text-sm font-medium"
-                          variants={repoButtonVariants}
-                          initial="hidden"
-                          animate="visible"
-                          whileHover="hover"
-                          whileTap="tap"
+                    {reposData && reposData.length > 0 ? (
+                      reposData.map((repo) => (
+                        <motion.div
+                          key={repo.id}
+                          className="flex items-center justify-between bg-[#20272F] p-2 rounded-lg"
+                          variants={itemVariants}
                         >
-                          Visit
-                        </motion.a>
-                      </motion.div>
-                    ))}
+                          <span className="text-white text-sm truncate">
+                            {repo.name}
+                          </span>
+                          <motion.a
+                            href={repo.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-[#00bd95] text-white px-3 py-1 rounded-full text-sm font-medium"
+                            variants={repoButtonVariants}
+                            initial="hidden"
+                            animate="visible"
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Visit
+                          </motion.a>
+                        </motion.div>
+                      ))
+                    ) : (
+                      <p className="text-gray-300 text-center col-span-2">Nima</p>
+                    )}
                   </div>
                 </div>
               )}

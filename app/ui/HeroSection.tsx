@@ -114,7 +114,7 @@ export default function Hero() {
                     `#${"contact".replace(/\s+/g, "").toLowerCase()}`
                   )
                 }
-                href="#contact"
+                href="https://bento.me/adam-pukaluk"
                 className=""
               >
                 Contact With Me

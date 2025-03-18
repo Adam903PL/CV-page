@@ -10,7 +10,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import Education from "@/app/ui/Sections/EducationJourney/EducationJourney";
 import JourneyTimeline from "@/app/ui/Sections/Test/test";
 import ApiTester from "@/app/ui/Sections/ApiTester/Api-Tester";
-import Games from "@/app/ui/Sections/Games/games";
+import Games from "@/app/ui/Sections/Games/Games";
 
 // Typy sekcji
 export type SectionType = {

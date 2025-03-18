@@ -17,10 +17,10 @@ import TechniCloud1 from "@/public/img/projectsImg/TechniCloud/TechniCloud1.png"
 import TechniCloud2 from "@/public/img/projectsImg/TechniCloud/TechniCloud2.png";
 import TechniCloud3 from "@/public/img/projectsImg/TechniCloud/TechniCloud3.png";
 import TechniCloud4 from "@/public/img/projectsImg/TechniCloud/TechniCloud4.png";
-import TechniBank1 from "@/public/img/projectsImg/technibank/technibank1.png";
-import TechniBank2 from "@/public/img/projectsImg/technibank/technibank2.png";
-import TechniBank3 from "@/public/img/projectsImg/technibank/technibank3.png";
-import TechniBank4 from "@/public/img/projectsImg/technibank/technibank4.png";
+import TechniBank1 from "@/public/img/projectsImg/techniBank/techniBank4.png";
+import TechniBank2 from "@/public/img/projectsImg/techniBank/techniBank2.png";
+import TechniBank3 from "@/public/img/projectsImg/techniBank/techniBank3.png";
+import TechniBank4 from "@/public/img/projectsImg/techniBank/techniBank4.png";
 
 // Your existing project list with the TechniBank images imported
 const projects = [

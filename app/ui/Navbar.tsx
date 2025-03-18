@@ -153,7 +153,7 @@ export default function NavBar() {
 
       {/* Main Navigation */}
       <nav
-        className={`fixed top-0 z-50 w-full bg-gradient-to-r from-[#1A202CCC] to-[#000000CC] transition-all duration-300 ${
+        className={`  fixed top-0 z-50 w-full bg-gradient-to-r from-[#1A202CCC] to-[#000000CC] transition-all duration-300 ${
           isScrolled ? "lg:-translate-y-full" : ""
         }`}
       >

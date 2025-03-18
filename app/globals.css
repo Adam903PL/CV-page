@@ -13,7 +13,13 @@
     --foreground: #ededed;
   }
 }
-
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
 body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
@@ -30,11 +36,7 @@ body {
 }
 
 
-* { margin: 0; }
-body {
 
-
-}
 .r-hex {
   overflow: hidden;
   display: inline-block;

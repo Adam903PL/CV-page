@@ -3,8 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { IoPersonSharp } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa";
-
+import { FaCode } from "react-icons/fa";
 // Import sample images (replace these with your actual imports)
 import FlashTalkAi1 from "@/public/img/projectsImg/flashtalkai/flashtalkai1.png";
 import FlashTalkAi2 from "@/public/img/projectsImg/flashtalkai/flashtalkai2.png";
@@ -16,65 +17,88 @@ import TechniCloud1 from "@/public/img/projectsImg/TechniCloud/TechniCloud1.png"
 import TechniCloud2 from "@/public/img/projectsImg/TechniCloud/TechniCloud2.png";
 import TechniCloud3 from "@/public/img/projectsImg/TechniCloud/TechniCloud3.png";
 import TechniCloud4 from "@/public/img/projectsImg/TechniCloud/TechniCloud4.png";
+import TechniBank1 from "@/public/img/projectsImg/technibank/technibank1.png";
+import TechniBank2 from "@/public/img/projectsImg/technibank/technibank2.png";
+import TechniBank3 from "@/public/img/projectsImg/technibank/technibank3.png";
+import TechniBank4 from "@/public/img/projectsImg/technibank/technibank4.png";
 
+// Your existing project list with the TechniBank images imported
 const projects = [
-  { 
-    id: 1, 
+  {
+    id: 1,
     name: "FlashTalkAI",
     description: "AI-powered language learning platform",
-    usedTechnology: ["TypeScript", "Tailwind", "Express.JS", "zustand"], 
+    usedTechnology: ["TypeScript", "Tailwind", "Express.JS", "zustand"],
     pictures: [FlashTalkAi1, FlashTalkAi2, FlashTalkAI4],
     repoLink: "https://github.com/Adam903PL/FlashTalkAI",
     liveLink: "https://flashtalkai.com",
-    type: "web"
+    type: "web",
   },
   {
     id: 2,
     name: "TechniFees",
-    description: "TechniFees is my first simple app for managing school fees, built with Python, Tkinter",
-    usedTechnology: ["Python", "Tkinter", "smtplib"], 
+    description:
+      "TechniFees is my first simple app for managing school fees, built with Python, Tkinter",
+    usedTechnology: ["Python", "Tkinter", "smtplib"],
     pictures: [TechniFees1, TechniFees2, TechniFees3],
     repoLink: "https://github.com/Adam903PL/TechniFees",
     liveLink: "",
-    type: "web"
+    type: "web",
   },
   {
     id: 3,
     name: "TechniCloud",
     description: "Basic Mobile APP in React Native",
-    usedTechnology: ["React Native"], 
+    usedTechnology: ["React Native"],
     pictures: [TechniCloud1, TechniCloud2, TechniCloud3, TechniCloud4],
     repoLink: "https://github.com/Adam903PL/Native-Cloud",
     liveLink: "",
-    type: "mobile"
+    type: "mobile",
+  },
+  {
+    id: 4,
+    name: "TechniBank",
+    description: "Banking system for personal finance management",
+    usedTechnology: ["HTML5", "CSS", "JS"],
+    pictures: [TechniBank1, TechniBank2, TechniBank3, TechniBank4],
+    repoLink: "https://github.com/Karman1818/TechniBank",
+    liveLink: "",
+    type: "web",
+    contributor: "https://github.com/Karman1818",
   },
 ];
 
 const Projects = () => {
   const [[activeIndex, direction], setActiveIndex] = useState([1, 0]);
   const [imageIndices, setImageIndices] = useState(projects.map(() => 0));
-  
+
   // Navigate between projects
   const navigate = (newDirection) => {
-    setActiveIndex([(activeIndex + newDirection + projects.length) % projects.length, newDirection]);
+    setActiveIndex([
+      (activeIndex + newDirection + projects.length) % projects.length,
+      newDirection,
+    ]);
   };
 
   // Cycle through images for each project
   useEffect(() => {
     const interval = setInterval(() => {
-      setImageIndices(prevIndices => {
+      setImageIndices((prevIndices) => {
         return prevIndices.map((currentIndex, projectIndex) => {
           const projectImages = projects[projectIndex].pictures;
           return (currentIndex + 1) % projectImages.length;
         });
       });
     }, 5000);
-    
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="projects" className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#171c22] py-20 overflow-hidden">
+    <section
+      id="projects"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#171c22] py-20 overflow-hidden"
+    >
       {/* Section Header */}
       <div className="container mx-auto px-4 mb-4">
         <motion.div
@@ -87,7 +111,8 @@ const Projects = () => {
             Recent <span className="text-[#00BD95]">Projects</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            "Quality over quantity - each project represents countless hours of dedication and learning."
+            "Quality over quantity - each project represents countless hours of
+            dedication and learning."
           </p>
         </motion.div>
       </div>
@@ -99,8 +124,18 @@ const Projects = () => {
           onClick={() => navigate(-1)}
           className="absolute left-4 lg:left-8 z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
 
@@ -108,8 +143,18 @@ const Projects = () => {
           onClick={() => navigate(1)}
           className="absolute right-4 lg:right-8 z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
 
@@ -131,21 +176,35 @@ const Projects = () => {
                     scale: isActive ? 1 : 0.8,
                     opacity: isActive ? 1 : 0.5,
                     x: isActive ? "0%" : `${position * 60}%`,
-                    zIndex: isActive ? 1 : 0
+                    zIndex: isActive ? 1 : 0,
                   }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   className={`absolute w-full max-w-4xl h-[500px] ${
-                    isActive ? "cursor-default shadow-[0_10px_20px_rgba(0,_189,_149,_0.9)]" : "cursor-pointer"
+                    isActive
+                      ? "cursor-default shadow-[0_10px_20px_rgba(0,_189,_149,_0.9)]"
+                      : "cursor-pointer"
                   }`}
-                  onClick={() => !isActive && setActiveIndex([projectIndex, projectIndex > activeIndex ? 1 : -1])}
+                  onClick={() =>
+                    !isActive &&
+                    setActiveIndex([
+                      projectIndex,
+                      projectIndex > activeIndex ? 1 : -1,
+                    ])
+                  }
                 >
-                  <div className={`relative h-full bg-gray-800 rounded-2xl overflow-hidden shadow-2xl ${
-                    isActive ? "ring-4 ring-[#00BD95]" : "ring-1 ring-gray-700"
-                  }`}>
+                  <div
+                    className={`relative h-full bg-gray-800 rounded-2xl overflow-hidden shadow-2xl ${
+                      isActive
+                        ? "ring-4 ring-[#00BD95]"
+                        : "ring-1 ring-gray-700"
+                    }`}
+                  >
                     {/* Image Carousel */}
-                    <div className={`relative w-full h-full overflow-hidden ${
-                      isMobileProject ? "max-w-[300px] mx-auto" : ""
-                    }`}>
+                    <div
+                      className={`relative w-full h-full overflow-hidden ${
+                        isMobileProject ? "max-w-[300px] mx-auto" : ""
+                      }`}
+                    >
                       <AnimatePresence initial={false}>
                         <motion.div
                           key={`${project.id}-${currentImageIndex}`}
@@ -157,14 +216,16 @@ const Projects = () => {
                         >
                           <Image
                             src={project.pictures[currentImageIndex]}
-                            alt={`${project.name} - Image ${currentImageIndex + 1}`}
+                            alt={`${project.name} - Image ${
+                              currentImageIndex + 1
+                            }`}
                             layout="fill"
                             objectFit={isMobileProject ? "contain" : "cover"}
                             priority={isActive}
                           />
                         </motion.div>
                       </AnimatePresence>
-                      
+
                       {/* Image Indicators */}
                       {isActive && project.pictures.length > 1 && (
                         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
@@ -172,23 +233,32 @@ const Projects = () => {
                             <div
                               key={imgIndex}
                               className={`w-2 h-2 rounded-full transition-colors ${
-                                imgIndex === currentImageIndex ? "bg-[#00BD95]" : "bg-white/60"
+                                imgIndex === currentImageIndex
+                                  ? "bg-[#00BD95]"
+                                  : "bg-white/60"
                               }`}
                             />
                           ))}
                         </div>
                       )}
                     </div>
-                    
+
                     {/* Overlay with information */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
+                        animate={{
+                          opacity: isActive ? 1 : 0,
+                          y: isActive ? 0 : 20,
+                        }}
                         className="text-white"
                       >
-                        <h3 className="text-3xl font-bold mb-2">{project.name}</h3>
-                        <p className="text-gray-300 mb-4">{project.description}</p>
+                        <h3 className="text-3xl font-bold mb-2">
+                          {project.name}
+                        </h3>
+                        <p className="text-gray-300 mb-4">
+                          {project.description}
+                        </p>
                         <div className="flex flex-wrap gap-2">
                           {project.usedTechnology.map((tech) => (
                             <span
@@ -201,18 +271,33 @@ const Projects = () => {
                         </div>
 
                         {/* Links to repo and demo */}
+
                         <div className="flex gap-4 mt-6">
                           <motion.a
                             href={project.repoLink}
                             target="_blank"
-                             rel="noopener noreferrer"
+                            rel="noopener noreferrer"
                             whileHover={{ scale: 1.1 }}
                             className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                           >
                             <FaGithub className="text-xl" />
                             <span className="font-semibold">Code</span>
                           </motion.a>
-                          
+
+                          {/* Dodaj tę sekcję */}
+                          {project.contributor && (
+                            <motion.a
+                              href={project.contributor}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.1 }}
+                              className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
+                            >
+<IoPersonSharp className="text-xl"/>
+                              <span className="font-semibold">Contributor</span>
+                            </motion.a>
+                          )}
+
                           {project.liveLink && (
                             <motion.a
                               href={project.liveLink}
@@ -222,10 +307,10 @@ const Projects = () => {
                               className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                             >
                               <span className="font-semibold">Live Demo</span>
-                              <svg 
-                                className="w-4 h-4" 
-                                fill="none" 
-                                stroke="currentColor" 
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
                                 viewBox="0 0 24 24"
                               >
                                 <path
@@ -253,7 +338,9 @@ const Projects = () => {
         {projects.map((_, index) => (
           <button
             key={index}
-            onClick={() => setActiveIndex([index, index > activeIndex ? 1 : -1])}
+            onClick={() =>
+              setActiveIndex([index, index > activeIndex ? 1 : -1])
+            }
             className={`w-3 h-3 rounded-full transition-colors ${
               index === activeIndex ? "bg-[#00BD95]" : "bg-gray-600"
             }`}

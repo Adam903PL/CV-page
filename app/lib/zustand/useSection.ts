@@ -5,11 +5,12 @@ import Contact from "@/app/ui/Sections/Contact/Contact";
 import Projects from "@/app/ui/Sections/Projetcs/Projects";
 import Skills from "@/app/ui/Sections/Skills/Skills";
 
-import { FaProjectDiagram, FaCode, FaEnvelope, FaSchool } from "react-icons/fa";
+import { FaProjectDiagram, FaCode, FaEnvelope, FaSchool, FaGamepad } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import Education from "@/app/ui/Sections/EducationJourney/EducationJourney";
 import JourneyTimeline from "@/app/ui/Sections/Test/test";
 import ApiTester from "@/app/ui/Sections/ApiTester/Api-Tester";
+import Games from "@/app/ui/Sections/Games/games";
 
 // Typy sekcji
 export type SectionType = {
@@ -57,14 +58,21 @@ const defaultSections: SectionType[] = [
     component: Education,
     icon: FaSchool,
     clicked: false,
-  }
+  },
   // {
   //   id:5,
   //   name:"Dino",
   //   component:ChromeDinoGame,
   //   icon:FaCode,
   //   clicked:false
-  // }
+  // },
+  {
+    id:6,
+    name:"Games",
+    component:Games,
+    icon:FaGamepad,
+    clicked:false
+  }
 ];
 
 // Stan zustand

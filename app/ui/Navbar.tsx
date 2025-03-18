@@ -100,7 +100,7 @@ export default function NavBar() {
                     initial={{ opacity: 0, maxWidth: 0 }}
                     animate={{ opacity: 1, maxWidth: 500 }}
                     exit={{ opacity: 0, maxWidth: 0 }}
-                    className="flex items-center gap-6 pr-6 overflow-hidden whitespace-nowrap bg-gradient-to-l from-primary/20 via-primary/20 via-80% to-transparent rounded-full"
+                    className="flex items-center gap-6 pr-[43rem] overflow-hidden whitespace-nowrap bg-gradient-to-l from-primary/20 via-primary/20 via-80% to-transparent rounded-full"
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <Link

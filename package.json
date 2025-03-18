@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build " ,
+    "build": "next build ",
     "start": "next start",
     "lint": "next lint"
   },
@@ -24,6 +24,7 @@
     "framer-motion": "^12.4.7",
     "gsap": "^3.12.7",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.483.0",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-calendar-heatmap": "^1.10.0",

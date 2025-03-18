@@ -43,7 +43,9 @@ export default function Hero() {
       loop: true,
     };
 
-    const typed = typedElement.current ? new Typed(typedElement.current, options) : null;
+    const typed = typedElement.current
+      ? new Typed(typedElement.current, options)
+      : null;
 
     return () => {
       if (typed) {
@@ -102,8 +104,9 @@ export default function Hero() {
           </p>
 
           <div className="flex space-x-4">
-            <motion.button variants={buttonVariants} 
-                        className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-3 rounded-full font-bold flex items-center"
+            <motion.button
+              variants={buttonVariants}
+              className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-3 rounded-full font-bold flex items-center"
             >
               <Link
                 onClick={() =>
@@ -121,8 +124,14 @@ export default function Hero() {
               variants={buttonVariants}
               className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-2 rounded-full font-bold flex items-center"
             >
-              <FaDownload />
-              CV
+              <a
+                href="/img/adam-pukaluk-cv.png"
+                download="adam-pukaluk-cv.png"
+                className="flex items-center"
+              >
+                <FaDownload className="mr-2" />
+                CV
+              </a>
             </motion.button>
           </div>
         </motion.div>

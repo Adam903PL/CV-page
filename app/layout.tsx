@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { Metadata } from "next";// Zaimportuj metadata z serwera
 import dynamic from 'next/dynamic';
 import NavBar from "./ui/Navbar"
+import MainFooter from "./ui/footer/Mainfooter";
 // const NavBar = dynamic(() => import('./ui/Navbar'), {
 //   ssr: false, // Wyłącz SSR dla tego komponentu
 // });
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased`)}>
         <NavBar />
         <div className="relative z-10">{children}</div>
+        <MainFooter/>
       </body>
     </html>
   );

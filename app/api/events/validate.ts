@@ -1,10 +1,10 @@
-import { plainToInstance } from "class-transformer";
+import { plainToInstance, ClassConstructor } from "class-transformer";
 import { validate } from "class-validator";
 import { NextResponse } from "next/server";
 
 export async function validateDto<T extends object>(
-  dtoClass: new () => T,
-  data: any
+  dtoClass: ClassConstructor<T>, 
+  data: Record<string, unknown> 
 ): Promise<{ errors?: string[]; validatedData?: T }> {
   const dtoInstance = plainToInstance(dtoClass, data);
   const errors = await validate(dtoInstance);

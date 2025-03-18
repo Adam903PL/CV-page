@@ -51,7 +51,7 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
+  const [[activeIndex, direction], setActiveIndex] = useState([1, 0]);
   const [imageIndices, setImageIndices] = useState(projects.map(() => 0));
   
   // Navigate between projects

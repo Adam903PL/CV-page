@@ -71,6 +71,23 @@ const projects = [
 const Projects = () => {
   const [[activeIndex, direction], setActiveIndex] = useState([1, 0]);
   const [imageIndices, setImageIndices] = useState(projects.map(() => 0));
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the screen is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   // Navigate between projects
   const navigate = (newDirection) => {
@@ -118,46 +135,7 @@ const Projects = () => {
       </div>
 
       {/* Projects Carousel */}
-      <div className="relative w-full h-[600px] flex items-center justify-center">
-        {/* Navigation Buttons */}
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute left-4 lg:left-8 z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
-        >
-          <svg
-            className="w-6 h-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        <button
-          onClick={() => navigate(1)}
-          className="absolute right-4 lg:right-8 z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
-        >
-          <svg
-            className="w-6 h-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-
+      <div className="relative w-full h-[600px] flex flex-col items-center justify-center">
         {/* Projects Container */}
         <div className="relative w-full h-full flex items-center justify-center overflow-visible">
           <AnimatePresence initial={false} custom={direction}>
@@ -174,8 +152,8 @@ const Projects = () => {
                   initial={{ scale: 0.8, opacity: 0, x: position * 100 + "%" }}
                   animate={{
                     scale: isActive ? 1 : 0.8,
-                    opacity: isActive ? 1 : 0.5,
-                    x: isActive ? "0%" : `${position * 60}%`,
+                    opacity: isActive ? 1 : isMobile ? 0 : 0.5, // Hide non-active projects on mobile
+                    x: isActive ? "0%" : isMobile ? `${position * 100}%` : `${position * 60}%`,
                     zIndex: isActive ? 1 : 0,
                   }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -244,7 +222,7 @@ const Projects = () => {
                     </div>
 
                     {/* Overlay with information */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-4 sm:p-8 flex flex-col justify-end">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{
@@ -253,17 +231,17 @@ const Projects = () => {
                         }}
                         className="text-white"
                       >
-                        <h3 className="text-3xl font-bold mb-2">
+                        <h3 className="text-2xl sm:text-3xl font-bold mb-2">
                           {project.name}
                         </h3>
-                        <p className="text-gray-300 mb-4">
+                        <p className="text-gray-300 mb-4 text-sm sm:text-base">
                           {project.description}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {project.usedTechnology.map((tech) => (
                             <span
                               key={tech}
-                              className="px-3 py-1 bg-[#00BD95]/20 text-[#00BD95] rounded-full text-sm"
+                              className="px-2 py-1 bg-[#00BD95]/20 text-[#00BD95] rounded-full text-xs sm:text-sm"
                             >
                               {tech}
                             </span>
@@ -272,7 +250,7 @@ const Projects = () => {
 
                         {/* Links to repo and demo */}
 
-                        <div className="flex gap-4 mt-6">
+                        <div className="flex flex-wrap gap-4 mt-4 sm:mt-6">
                           <motion.a
                             href={project.repoLink}
                             target="_blank"
@@ -281,10 +259,9 @@ const Projects = () => {
                             className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                           >
                             <FaGithub className="text-xl" />
-                            <span className="font-semibold">Code</span>
+                            <span className="font-semibold text-sm sm:text-base">Code</span>
                           </motion.a>
 
-                          {/* Dodaj tę sekcję */}
                           {project.contributor && (
                             <motion.a
                               href={project.contributor}
@@ -293,8 +270,8 @@ const Projects = () => {
                               whileHover={{ scale: 1.1 }}
                               className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                             >
-<IoPersonSharp className="text-xl"/>
-                              <span className="font-semibold">Contributor</span>
+                              <IoPersonSharp className="text-xl"/>
+                              <span className="font-semibold text-sm sm:text-base">Contributor</span>
                             </motion.a>
                           )}
 
@@ -306,7 +283,7 @@ const Projects = () => {
                               whileHover={{ scale: 1.1 }}
                               className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                             >
-                              <span className="font-semibold">Live Demo</span>
+                              <span className="font-semibold text-sm sm:text-base">Live Demo</span>
                               <svg
                                 className="w-4 h-4"
                                 fill="none"
@@ -331,21 +308,62 @@ const Projects = () => {
             })}
           </AnimatePresence>
         </div>
-      </div>
-
-      {/* Project Pagination */}
-      <div className="flex gap-2 mt-8">
-        {projects.map((_, index) => (
+        
+        {/* Navigation Controls - Moved below for mobile */}
+        <div className="flex justify-center items-center mt-4 gap-4 sm:gap-8">
           <button
-            key={index}
-            onClick={() =>
-              setActiveIndex([index, index > activeIndex ? 1 : -1])
-            }
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === activeIndex ? "bg-[#00BD95]" : "bg-gray-600"
-            }`}
-          />
-        ))}
+            onClick={() => navigate(-1)}
+            className="z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
+          >
+            <svg
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          
+          {/* Project Pagination - Now placed between navigation buttons */}
+          <div className="flex gap-2">
+            {projects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  setActiveIndex([index, index > activeIndex ? 1 : -1])
+                }
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  index === activeIndex ? "bg-[#00BD95]" : "bg-gray-600"
+                }`}
+              />
+            ))}
+          </div>
+          
+          <button
+            onClick={() => navigate(1)}
+            className="z-30 p-3 rounded-full bg-[#00BD95] hover:bg-[#00FFC9] transition-colors"
+          >
+            <svg
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   );

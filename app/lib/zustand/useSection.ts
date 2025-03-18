@@ -9,7 +9,7 @@ import { FaProjectDiagram, FaCode, FaEnvelope, FaSchool } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import Education from "@/app/ui/Sections/EducationJourney/EducationJourney";
 import JourneyTimeline from "@/app/ui/Sections/Test/test";
-
+import ApiTester from "@/app/ui/Sections/ApiTester/Api-Tester";
 
 // Typy sekcji
 export type SectionType = {
@@ -29,9 +29,16 @@ const defaultSections: SectionType[] = [
     icon: BsFillPersonFill,
     clicked: false,
   },
-  { id: 2, name: "Skills", component: Skills, icon: FaCode, clicked: false },
   {
-    id: 3,
+    id:2,
+    name:"API-Tester",
+    component:ApiTester,
+    icon:FaCode,
+    clicked:false
+  },
+  { id: 3, name: "Skills", component: Skills, icon: FaCode, clicked: false },
+  {
+    id: 4,
     name: "Projects",
     component: Projects,
     icon: FaProjectDiagram,
@@ -45,12 +52,12 @@ const defaultSections: SectionType[] = [
   //   clicked: false,
   // },
   {
-    id: 4,
+    id: 5,
     name: "Education",
     component: Education,
     icon: FaSchool,
     clicked: false,
-  },
+  }
   // {
   //   id:5,
   //   name:"Dino",

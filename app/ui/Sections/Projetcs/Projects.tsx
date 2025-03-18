@@ -205,7 +205,7 @@ const Projects = () => {
                           <motion.a
                             href={project.repoLink}
                             target="_blank"
-                            rel="noopener noreferrer"
+                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.1 }}
                             className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                           >

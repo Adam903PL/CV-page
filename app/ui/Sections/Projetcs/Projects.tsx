@@ -161,7 +161,7 @@ const Projects = () => {
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   className={`absolute ${isVerySmallScreen ? 'w-full px-4' : 'w-full max-w-4xl'} h-[500px] ${
                     isActive
-                      ? "cursor-default shadow-[0_10px_20px_rgba(0,_189,_149,_0.9)]"
+                      ? "cursor-default "
                       : "cursor-pointer"
                   }`}
                   onClick={() =>

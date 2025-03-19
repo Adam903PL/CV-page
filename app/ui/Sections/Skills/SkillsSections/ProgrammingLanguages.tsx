@@ -12,7 +12,7 @@ const skillsArr = [
   {
     name: "JavaScript",
     icon: JavaScriptIcon,
-    percentage: 95,
+    percentage: 70,
     details:
       "Core language mastery (2+ years). Expert in ES6+ features, async/await patterns, closure utilization, and Promise chaining. Daily driver for production projects.",
   },

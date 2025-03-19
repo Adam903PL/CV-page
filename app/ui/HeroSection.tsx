@@ -143,8 +143,8 @@ export default function Hero() {
               className="bg-gradient-to-r from-[#00FFC9] to-[#00BD95] px-6 py-2 rounded-full font-bold flex items-center"
             >
               <a
-                href="/img/adam-pukaluk-cv.png"
-                download="adam-pukaluk-cv.png"
+                href="/img/Adam-Pukaluk-CV.pdf"
+                download="Adam-Pukaluk-CV.pdf"
                 className="flex items-center"
               >
                 <FaDownload className="mr-2" />

@@ -117,8 +117,8 @@ export default function Hero() {
           </div>
 
           <p className="text-gray-300 mb-8 max-w-md">
-            Lorem ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem ipsum has been the industry's
+          Passionate about backend development and cybersecurity, 
+          I enjoy building secure and efficient applications while constantly expanding my skills.
           </p>
 
           <div className="flex space-x-4">

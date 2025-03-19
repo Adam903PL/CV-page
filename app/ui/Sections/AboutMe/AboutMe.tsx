@@ -213,7 +213,7 @@ const AboutMe: React.FC = () => {
               and Next.js. My dream? Landing an internship to soar higher in the
               IT world!
             </p>
-            <motion.div className="flex flex-row gap-4" variants={itemVariants}>
+            <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
               <motion.a
                 href="tel:695031104"
                 className="flex items-center justify-center gap-2 bg-[#20272F] text-white px-6 py-3 rounded-full shadow-lg"

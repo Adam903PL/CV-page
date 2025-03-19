@@ -75,6 +75,15 @@ export default function NavBar() {
   const generateLinkHash = (name: string) =>
     `#${name.replace(/\s+/g, "").toLowerCase()}`;
 
+  // Special case for Games section
+  const getHref = (name: string) => {
+    if (name === "Games") {
+      return "/games";
+    } else {
+      return `/${generateLinkHash(name)}`;
+    }
+  };
+
   return (
     <>
       {/* Desktop Floating Button & Expanded Menu */}
@@ -105,7 +114,7 @@ export default function NavBar() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <Link
-                      href="#home"
+                      href="/#home"
                       onClick={() => {
                         setActiveSection("#home");
                         setMenuOpen(false);
@@ -121,11 +130,12 @@ export default function NavBar() {
                     {sections.map((item) => {
                       const linkHash = generateLinkHash(item.name);
                       const isActive = activeSection === linkHash;
+                      const href = item.name === "Games" ? "/games" : `/#${item.name.replace(/\s+/g, "").toLowerCase()}`;
 
                       return (
                         <Link
                           key={item.id}
-                          href={linkHash}
+                          href={href}
                           onClick={() => {
                             setActiveSection(linkHash);
                             setMenuOpen(false);
@@ -161,7 +171,7 @@ export default function NavBar() {
           <div className="flex items-center justify-between">
             <span className="text-xl sm:text-2xl font-bold text-white">
               <Link
-                href="#home"
+                href="/#home"
                 className="text-xl sm:text-2xl font-bold text-white hover:text-primary transition-colors flex items-center gap-2"
               >
                 <FaHome className="text-primary" />
@@ -185,11 +195,12 @@ export default function NavBar() {
               {sections.map((item) => {
                 const linkHash = generateLinkHash(item.name);
                 const isActive = activeSection === linkHash;
+                const href = item.name === "Games" ? "/games" : `/#${item.name.replace(/\s+/g, "").toLowerCase()}`;
 
                 return (
                   <div key={item.id} className="relative">
                     <Link
-                      href={linkHash}
+                      href={href}
                       onClick={() => setActiveSection(linkHash)}
                       className={`relative py-2 font-bold text-white ${
                         isActive ? "text-primary" : ""
@@ -222,11 +233,12 @@ export default function NavBar() {
                   {sections.map((item) => {
                     const linkHash = generateLinkHash(item.name);
                     const isActive = activeSection === linkHash;
+                    const href = item.name === "Games" ? "/games" : `/#${item.name.replace(/\s+/g, "").toLowerCase()}`;
 
                     return (
                       <motion.div key={item.id} whileHover="hover" variants={linkVariants}>
                         <Link
-                          href={linkHash}
+                          href={href}
                           onClick={() => {
                             setActiveSection(linkHash);
                             setMenuOpen(false);

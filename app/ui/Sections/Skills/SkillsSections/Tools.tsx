@@ -12,16 +12,9 @@ const skillsArr = [
   {
     name: "Git",
     icon: GitIcon,
-    percentage: 90,
+    percentage: 70,
     details:
       "Daily driver for version control. Expert in complex branching strategies, interactive rebasing, and resolving merge conflicts. Mastery of Git Flow in team environments.",
-  },
-  {
-    name: "Docker",
-    icon: DockerIcon,
-    percentage: 80,
-    details:
-      "2023 CTF specialist - containerization challenges, Docker Compose multi-service setups, and vulnerability analysis in isolated environments. Practical security hardening experience.",
   },
   {
     name: "VS Code",
@@ -33,7 +26,7 @@ const skillsArr = [
   {
     name: "Postman",
     icon: PostmanIcon,
-    percentage: 85,
+    percentage: 50,
     details:
       "Daily API testing toolkit - automated request chaining, environment variables, and CI/CD integration. Proficient in creating comprehensive testing collections.",
   },

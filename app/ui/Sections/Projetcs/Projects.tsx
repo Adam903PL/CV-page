@@ -69,7 +69,8 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [[activeIndex, direction], setActiveIndex] = useState([1, 0]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [imageIndices, setImageIndices] = useState(projects.map(() => 0));
   const [isMobile, setIsMobile] = useState(false);
   const [isVerySmallScreen, setIsVerySmallScreen] = useState(false);
@@ -91,12 +92,13 @@ const Projects = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Navigate between projects
+  // Navigate between projects with infinite scrolling
   const navigate = (newDirection) => {
-    setActiveIndex([
-      (activeIndex + newDirection + projects.length) % projects.length,
-      newDirection,
-    ]);
+    setDirection(newDirection);
+    
+    // Calculate new index with wrapping for infinite scrolling
+    const newIndex = (activeIndex + newDirection + projects.length) % projects.length;
+    setActiveIndex(newIndex);
   };
 
   // Cycle through images for each project
@@ -112,6 +114,12 @@ const Projects = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Helper function to get wrapped index for infinite carousel
+  const getWrappedIndex = (index) => {
+    // This ensures the index always stays within the valid range
+    return ((index % projects.length) + projects.length) % projects.length;
+  };
 
   return (
     <section
@@ -140,9 +148,12 @@ const Projects = () => {
       <div className="relative w-full h-[600px] flex flex-col items-center justify-center">
         {/* Projects Container */}
         <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-          <AnimatePresence initial={false} custom={direction}>
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
             {projects.map((project, projectIndex) => {
-              const position = projectIndex - activeIndex;
+              // Calculate visual position for infinite scrolling effect
+              const position = ((projectIndex - activeIndex) + projects.length) % projects.length;
+              const wrappedPosition = position > projects.length / 2 ? position - projects.length : position;
+              
               const isActive = position === 0;
               const currentImageIndex = imageIndices[projectIndex];
               const isMobileProject = project.type === "mobile";
@@ -150,27 +161,42 @@ const Projects = () => {
               return (
                 <motion.div
                   key={project.id}
-                  custom={position}
-                  initial={{ scale: 0.8, opacity: 0, x: position * 100 + "%" }}
+                  custom={direction}
+                  initial={(custom) => {
+                    return {
+                      scale: 0.8,
+                      opacity: 0,
+                      x: custom > 0 ? "100%" : "-100%"
+                    };
+                  }}
                   animate={{
                     scale: isActive ? 1 : 0.8,
                     opacity: isActive ? 1 : isMobile ? 0 : 0.5, // Hide non-active projects on mobile
-                    x: isActive ? "0%" : isMobile ? `${position * 100}%` : `${position * 60}%`,
+                    x: isActive ? "0%" : isMobile ? `${wrappedPosition * 100}%` : `${wrappedPosition * 60}%`,
                     zIndex: isActive ? 1 : 0,
+                  }}
+                  exit={(custom) => {
+                    return {
+                      scale: 0.8,
+                      opacity: 0,
+                      x: custom < 0 ? "100%" : "-100%",
+                      zIndex: 0
+                    };
                   }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   className={`absolute ${isVerySmallScreen ? 'w-full px-4' : 'w-full max-w-4xl'} h-[500px] ${
                     isActive
-                      ? "cursor-default "
+                      ? "cursor-default"
                       : "cursor-pointer"
                   }`}
-                  onClick={() =>
-                    !isActive &&
-                    setActiveIndex([
-                      projectIndex,
-                      projectIndex > activeIndex ? 1 : -1,
-                    ])
-                  }
+                  onClick={() => {
+                    if (!isActive) {
+                      const newDirection = position > projects.length / 2 || 
+                                          (position < projects.length / 2 && position > 0) ? -1 : 1;
+                      setDirection(newDirection);
+                      setActiveIndex(projectIndex);
+                    }
+                  }}
                 >
                   <div
                     className={`relative h-full bg-gray-800 rounded-2xl overflow-hidden shadow-2xl ${
@@ -205,22 +231,6 @@ const Projects = () => {
                           />
                         </motion.div>
                       </AnimatePresence>
-
-                      {/* Image Indicators */}
-                      {isActive && project.pictures.length > 1 && (
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                          {project.pictures.map((_, imgIndex) => (
-                            <div
-                              key={imgIndex}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                imgIndex === currentImageIndex
-                                  ? "bg-[#00BD95]"
-                                  : "bg-white/60"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      )}
                     </div>
 
                     {/* Overlay with information */}
@@ -250,18 +260,33 @@ const Projects = () => {
                           ))}
                         </div>
 
-                        {/* Links to repo and demo */}
+                        {/* Image indicators - Moved above links with margin for separation */}
+                        {isActive && project.pictures.length > 1 && (
+                          <div className="flex gap-2 my-4">
+                            {project.pictures.map((_, imgIndex) => (
+                              <div
+                                key={imgIndex}
+                                className={`w-2 h-2 rounded-full transition-colors ${
+                                  imgIndex === currentImageIndex
+                                    ? "bg-[#00BD95]"
+                                    : "bg-white/60"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        )}
 
-                        <div className="flex flex-wrap gap-4 mt-4 sm:mt-6">
+                        {/* Links to repo and demo - Fixed layout for mobile */}
+                        <div className="flex flex-wrap gap-3 mt-2">
                           <motion.a
                             href={project.repoLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center gap-1 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                           >
-                            <FaGithub className="text-xl" />
-                            <span className="font-semibold text-sm sm:text-base">Code</span>
+                            <FaGithub className="text-lg" />
+                            <span className="font-semibold text-xs sm:text-sm">Code</span>
                           </motion.a>
 
                           {project.contributor && (
@@ -269,11 +294,11 @@ const Projects = () => {
                               href={project.contributor}
                               target="_blank"
                               rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1 }}
-                              className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
+                              whileHover={{ scale: 1.05 }}
+                              className="flex items-center gap-1 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                             >
-                              <IoPersonSharp className="text-xl"/>
-                              <span className="font-semibold text-sm sm:text-base">Contributor</span>
+                              <IoPersonSharp className="text-lg"/>
+                              <span className="font-semibold text-xs sm:text-sm">Contributor</span>
                             </motion.a>
                           )}
 
@@ -282,12 +307,12 @@ const Projects = () => {
                               href={project.liveLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1 }}
-                              className="flex items-center gap-2 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
+                              whileHover={{ scale: 1.05 }}
+                              className="flex items-center gap-1 text-[#00BD95] hover:text-[#00FFC9] transition-colors"
                             >
-                              <span className="font-semibold text-sm sm:text-base">Live Demo</span>
+                              <span className="font-semibold text-xs sm:text-sm">Live Demo</span>
                               <svg
-                                className="w-4 h-4"
+                                className="w-3 h-3 sm:w-4 sm:h-4"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -337,9 +362,11 @@ const Projects = () => {
             {projects.map((_, index) => (
               <button
                 key={index}
-                onClick={() =>
-                  setActiveIndex([index, index > activeIndex ? 1 : -1])
-                }
+                onClick={() => {
+                  const newDirection = index > activeIndex ? 1 : -1;
+                  setDirection(newDirection);
+                  setActiveIndex(index);
+                }}
                 className={`w-3 h-3 rounded-full transition-colors ${
                   index === activeIndex ? "bg-[#00BD95]" : "bg-gray-600"
                 }`}

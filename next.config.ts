@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       include: /node_modules/,
       type: "javascript/auto",
     });
+    
     return config;
   },
 };

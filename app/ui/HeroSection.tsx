@@ -1,12 +1,14 @@
 "use client";
 
 import { FaDownload } from "react-icons/fa";
-import Image from "next/image";
+// import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import Link from "next/link";
 import { useLinks } from "../lib/zustand/useLinks";
 import { motion } from "framer-motion";
+import PentagonWithImage from "./PentagonWithMe";
+import Image from "next/image";
 
 // Animation variants
 const containerVariants = {
@@ -70,15 +72,31 @@ export default function Hero() {
           className="md:w-1/2 flex justify-center"
           variants={imageVariants}
         >
-          <div className="r-hex">
+          {/* <div className="r-hex">
             <div className="r-hex-inner relative w-full h-full">
               <Image
-                src="/img/nigger.png"
+                src={PicOfMe} // Używamy importowanego zdjęcia PicOfMe
                 alt="Adam Pukaluk"
                 width={500}
                 height={500}
-                objectFit="cover"
+                objectFit="cover" // Zdjęcie wypełni kontener, przycinając nadmiar
+                className="hex-image" // Dodajemy klasę do stylizacji
               />
+            </div>
+          </div> */}
+          <div className="flex justify-center items-center w-[600px] h-[600px]">
+            <div className="relative w-[300px] h-[300px] rounded-full bg-[rgb(0,189,149)] flex justify-center items-center border-8 border-[rgba(0,150,120,0.8)] overflow-hidden shadow-xl">
+              <div className="relative w-full h-full">
+                <Image
+                  src="/img/me2.jpg"
+                  alt="Zdjęcie w kole"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  style={{ opacity: 0.9 }}
+                  priority
+                />
+              </div>
             </div>
           </div>
         </motion.div>

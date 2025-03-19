@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { FaPhone, FaCode, FaGithub } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaPhone, FaCode, FaGithub, FaMailBulk } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { Tooltip } from "react-tooltip";
@@ -149,6 +149,26 @@ const AboutMe: React.FC = () => {
     "https://api.github.com/users/Adam903PL/repos?per_page=100",
     fetcher
   );
+  const [copyText, setCopyText] = useState("Copy E-Mail");
+  const email = "pukaluk.adam505@gmail.com";
+
+  const buttonVariants = {
+    hover: { scale: 1.05, transition: { duration: 0.2 } },
+    tap: { scale: 0.95, transition: { duration: 0.2 } },
+  };
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault(); // Zapobiega otwieraniu klienta poczty
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        setCopyText("Copied!");
+        setTimeout(() => setCopyText("Copy E-Mail"), 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
 
   return (
     <section
@@ -188,9 +208,10 @@ const AboutMe: React.FC = () => {
             </motion.h1>
             <p className="text-gray-300 text-lg leading-relaxed">
               Hi! I'm Adam, a 15-year-old programmer with a passion for backend
-              and frontend development. Over the past 2 years, I've been coding in JavaScript
-              and Python, building applications with Express.js and Next.js. My
-              dream? Landing an internship to soar higher in the IT world!
+              and frontend development. Over the past 2 years, I've been coding
+              in JavaScript and Python, building applications with Express.js
+              and Next.js. My dream? Landing an internship to soar higher in the
+              IT world!
             </p>
             <motion.div className="flex flex-row gap-4" variants={itemVariants}>
               <motion.a
@@ -202,6 +223,19 @@ const AboutMe: React.FC = () => {
               >
                 <FaPhone className="text-[#00bd95] w-5 h-5" />
                 <span className="font-semibold text-lg">695-031-104</span>
+              </motion.a>
+              <motion.a
+                href={`mailto:${email}`}
+                className="flex items-center justify-center gap-2 bg-[#20272F] text-white px-6 py-3 rounded-full shadow-lg cursor-pointer"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                onClick={handleCopyEmail}
+                data-tooltip-id="skill-tooltip"
+                data-tooltip-content={email}
+              >
+                <FaMailBulk className="text-[#00bd95] w-5 h-5" />
+                <span className="font-semibold text-lg">{copyText}</span>
               </motion.a>
 
               <Link href={`https://bento.me/adam-pukaluk`}>
@@ -280,7 +314,7 @@ const AboutMe: React.FC = () => {
           >
             {/* GitHub Stats - na górze prawej kolumny, z mniejszą wysokością */}
             <motion.div
-              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl" 
+              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl"
               variants={githubCardVariants}
               initial="hidden"
               whileInView="visible"
@@ -332,7 +366,9 @@ const AboutMe: React.FC = () => {
                         </motion.div>
                       ))
                     ) : (
-                      <p className="text-gray-300 text-center col-span-2">Nima</p>
+                      <p className="text-gray-300 text-center col-span-2">
+                        
+                      </p>
                     )}
                   </div>
                 </div>

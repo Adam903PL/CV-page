@@ -33,7 +33,6 @@ const Games = () => {
     },
     hover: {
       scale: 1.05,
-      // boxShadow: "0px 0px 20px rgba(0, 189, 149, 0.7)",
       transition: { duration: 0.3 }
     },
     tap: { scale: 0.95 }
@@ -125,13 +124,13 @@ const Games = () => {
         </motion.div>
         
         <motion.div 
-          className="mt-12 flex justify-center gap-8"
+          className="mt-12 flex flex-wrap justify-center gap-3"
           variants={containerVariants}
         >
           {['Tetris', 'Snake', 'Tic Tac Toe', 'Memory Match'].map((game, index) => (
             <motion.div 
               key={index}
-              className="text-sm font-medium text-gray-400 bg-[#20272F] px-4 py-2 rounded-full"
+              className="text-sm font-medium text-gray-400 bg-[#20272F] px-4 py-2 rounded-full mb-2"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1 + (index * 0.1) }}

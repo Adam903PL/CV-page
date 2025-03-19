@@ -1,18 +1,16 @@
 // RootLayout.tsx
-"use client"; // Komponent kliencki
 
+"use client"
 import { useEffect } from "react";
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
-import { Metadata } from "next";// Zaimportuj metadata z serwera
+
 import dynamic from 'next/dynamic';
 import NavBar from "./ui/Navbar"
 import MainFooter from "./ui/footer/Mainfooter";
-// const NavBar = dynamic(() => import('./ui/Navbar'), {
-//   ssr: false, // Wyłącz SSR dla tego komponentu
-// });
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,6 +20,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+
 
 export default function RootLayout({
   children,

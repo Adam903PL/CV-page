@@ -72,21 +72,23 @@ const Projects = () => {
   const [[activeIndex, direction], setActiveIndex] = useState([1, 0]);
   const [imageIndices, setImageIndices] = useState(projects.map(() => 0));
   const [isMobile, setIsMobile] = useState(false);
+  const [isVerySmallScreen, setIsVerySmallScreen] = useState(false);
 
-  // Check if the screen is mobile
+  // Check if the screen is mobile or very small
   useEffect(() => {
-    const checkIfMobile = () => {
+    const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
+      setIsVerySmallScreen(window.innerWidth <= 480);
     };
     
     // Initial check
-    checkIfMobile();
+    checkScreenSize();
     
     // Add event listener
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener('resize', checkScreenSize);
     
     // Clean up
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   // Navigate between projects
@@ -157,7 +159,7 @@ const Projects = () => {
                     zIndex: isActive ? 1 : 0,
                   }}
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                  className={`absolute w-full max-w-4xl h-[500px] ${
+                  className={`absolute ${isVerySmallScreen ? 'w-full px-4' : 'w-full max-w-4xl'} h-[500px] ${
                     isActive
                       ? "cursor-default shadow-[0_10px_20px_rgba(0,_189,_149,_0.9)]"
                       : "cursor-pointer"
@@ -175,7 +177,7 @@ const Projects = () => {
                       isActive
                         ? "ring-4 ring-[#00BD95]"
                         : "ring-1 ring-gray-700"
-                    }`}
+                    } ${isVerySmallScreen ? 'mx-2' : ''}`}
                   >
                     {/* Image Carousel */}
                     <div

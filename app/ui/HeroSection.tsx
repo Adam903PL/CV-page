@@ -206,7 +206,7 @@ export default function Hero() {
               animate={isHovering ? { scale: 1.03 } : {}}
             >
               <motion.div 
-                className="relative w-[380px] h-[380px] rounded-full bg-gradient-to-br from-[#00ffc9] to-[#00bd95] flex justify-center items-center border-8 border-[rgba(0,150,120,0.8)] overflow-hidden shadow-2xl"
+                className="relative w-[340px] h-[340px] rounded-full bg-gradient-to-br from-[#00ffc9] to-[#00bd95] flex justify-center items-center border-8 border-[rgba(0,150,120,0.8)] overflow-hidden shadow-2xl"
                 animate={floatingAnimation}
                 onHoverStart={() => setIsHovering(true)}
                 onHoverEnd={() => setIsHovering(false)}
@@ -217,64 +217,13 @@ export default function Hero() {
                     src="/img/me2.jpg"
                     alt="Adam Pukaluk"
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
                     style={{ opacity: 0.9 }}
                     priority
                   />
                 </div>
                 
-                {/* Floating skill badges around the image */}
-                <div className="absolute -top-4 -right-4 z-20">
-                  <motion.div
-                    custom={0}
-                    variants={skillBadgeVariants}
-                    whileHover="hover"
-                    className="bg-gray-900 text-primary p-2 rounded-full shadow-lg flex items-center justify-center w-12 h-12"
-                  >
-                    {skills[0].icon}
-                  </motion.div>
-                </div>
-                <div className="absolute top-1/4 -right-6 z-20">
-                  <motion.div
-                    custom={1}
-                    variants={skillBadgeVariants}
-                    whileHover="hover"
-                    className="bg-gray-900 text-primary p-2 rounded-full shadow-lg flex items-center justify-center w-12 h-12"
-                  >
-                    {skills[1].icon}
-                  </motion.div>
-                </div>
-                <div className="absolute -bottom-4 -right-2 z-20">
-                  <motion.div
-                    custom={2}
-                    variants={skillBadgeVariants}
-                    whileHover="hover"
-                    className="bg-gray-900 text-primary p-2 rounded-full shadow-lg flex items-center justify-center w-12 h-12"
-                  >
-                    {skills[2].icon}
-                  </motion.div>
-                </div>
-                <div className="absolute -bottom-4 -left-2 z-20">
-                  <motion.div
-                    custom={3}
-                    variants={skillBadgeVariants}
-                    whileHover="hover"
-                    className="bg-gray-900 text-primary p-2 rounded-full shadow-lg flex items-center justify-center w-12 h-12"
-                  >
-                    {skills[3].icon}
-                  </motion.div>
-                </div>
-                <div className="absolute top-1/4 -left-6 z-20">
-                  <motion.div
-                    custom={4}
-                    variants={skillBadgeVariants}
-                    whileHover="hover"
-                    className="bg-gray-900 text-primary p-2 rounded-full shadow-lg flex items-center justify-center w-12 h-12"
-                  >
-                    {skills[4].icon}
-                  </motion.div>
-                </div>
               </motion.div>
             </motion.div>
 
@@ -329,7 +278,7 @@ export default function Hero() {
               </motion.p>
 
               <motion.div 
-                className="flex flex-wrap space-x-4"
+                className="flex flex-wrap "
                 variants={textVariants}
               >
                 <motion.button

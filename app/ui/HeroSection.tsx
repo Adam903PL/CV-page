@@ -278,7 +278,7 @@ export default function Hero() {
               </motion.p>
 
               <motion.div 
-                className="flex flex-wrap "
+                className="flex flex-wrap gap-2"
                 variants={textVariants}
               >
                 <motion.button

@@ -28,7 +28,7 @@ const projects = [
     id: 1,
     name: "FlashTalkAI",
     description: "AI-powered language learning platform",
-    usedTechnology: ["TypeScript", "Tailwind", "Express.JS", "zustand"],
+    usedTechnology: ["TypeScript", "Tailwind", "Express.JS", "PostgreSQL",'DeepSeekAPI'],
     pictures: [FlashTalkAi1, FlashTalkAi2, FlashTalkAI4],
     repoLink: "https://github.com/Adam903PL/FlashTalkAI",
     liveLink: "https://flashtalkai.com",
@@ -39,7 +39,7 @@ const projects = [
     name: "TechniFees",
     description:
       "TechniFees is my first simple app for managing school fees, built with Python, Tkinter",
-    usedTechnology: ["Python", "Tkinter", "smtplib"],
+    usedTechnology: ["Python", "Tkinter", "smtplib","PostgreSQL"],
     pictures: [TechniFees1, TechniFees2, TechniFees3],
     repoLink: "https://github.com/Adam903PL/TechniFees",
     liveLink: "",

@@ -8,6 +8,15 @@ import { Tooltip } from "react-tooltip";
 import useSWR from "swr";
 import Link from "next/link";
 
+import { FaDownload,  FaServer, FaLaptopCode } from "react-icons/fa";
+import { useEffect, useRef,  } from "react";
+import Typed from "typed.js";
+
+import Image from "next/image";
+import { useInView } from "react-intersection-observer";
+import { RiTerminalBoxFill } from "react-icons/ri";
+import { FaShieldAlt } from "react-icons/fa";
+
 // Fetcher dla SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
 

@@ -106,7 +106,9 @@ const LaptopScreen = () => {
                     variants={itemVariants}
                     className={`group relative bg-[rgba(${
                       item.color === "#00BD95" ? "0,189,149" : "217,217,217"
-                    },0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[${item.color}] cursor-pointer`}
+                    },0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[${
+                      item.color
+                    }] cursor-pointer`}
                     onClick={() => setActiveScreen(item.id)}
                   >
                     <div className="flex flex-col items-center">
@@ -132,12 +134,18 @@ const LaptopScreen = () => {
               exit={{ opacity: 0, x: 50 }}
               className="w-full h-full flex flex-col items-center p-6 relative"
             >
+              
+
+
               <button
                 onClick={handleGlobalBack}
-                className="absolute top-4 right-4 text-black hover:text-gray-700"
+                className="absolute top-4 right-4 text-black hover:text-gray-700 cursor-pointer"
               >
                 <FaArrowLeft className="text-2xl" />
               </button>
+              
+              
+              
               {activeScreen === "frontend" ? (
                 <ActiveComponent ref={activeComponentRef} />
               ) : (
@@ -147,7 +155,7 @@ const LaptopScreen = () => {
           )}
         </div>
       </div>
-      
+
       {/* Dolny pasek (np. pasek symulujący ekran laptopa) */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}

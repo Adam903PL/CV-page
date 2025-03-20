@@ -288,11 +288,7 @@ const ApiTester = () => {
   return (
     <section
       id="api-tester"
-      className={`relative w-full min-h-screen flex flex-col items-center justify-center ${
-        darkMode
-          ? "bg-gradient-to-b from-[#171c22] to-[#0d1117]"
-          : "bg-gradient-to-b from-gray-100 to-white"
-      } py-20 px-4 sm:px-6`}
+      className={`relative w-full min-h-screen flex flex-col items-center justify-center bg-[#171c22] py-20 px-4 sm:px-6`}
     >
       <Toaster position="top-right" />
 

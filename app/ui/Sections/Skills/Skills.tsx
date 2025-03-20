@@ -134,58 +134,77 @@ const Skills = () => {
     >
       <BackgroundCircles />
 
-      <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
-        <div className="flex flex-row">
-          <motion.div
-            className="flex flex-row whitespace-nowrap min-w-full"
-            variants={carouselVariants}
-            initial={{ x: "0%" }}
-            animate="animate"
-          >
-            {skills.map((skill, index) => (
-              <div key={index} className="flex flex-row items-center">
-                <h1 className="text-white text-5xl font-bold px-4 ">{skill}</h1>
-                <div className="w-10 h-[2px] "></div>
-              </div>
-            ))}
-            {skills.map((skill, index) => (
-              <div
-                key={`duplicate-${index}`}
-                className="flex flex-row items-center"
+      <div className="relative w-full overflow-hidden py-6">
+        <div className="absolute inset-y-0 left-0 w-24 " />
+        <div className="absolute inset-y-0 right-0 w-24 " />
+        
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{
+            x: [0, -2000],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 40,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...skills, ...skills, ...skills].map((skill, index) => (
+            <div key={index} className="inline-flex items-center group mx-3">
+              <motion.h1 
+                className="text-gray-400 text-5xl font-bold transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.05, 
+                  color: "#FFFFFF",
+                  textShadow: "0 0 8px rgba(255,255,255,0.4)"
+                }}
               >
-                <h1 className="text-white text-5xl font-bold px-4">{skill}</h1>
-                <div className="w-10 h-[2px] "></div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+                {skill}
+              </motion.h1>
+              <span className="mx-4 text-blue-500 opacity-50">•</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
-      <div className="bg-[#171C22] w-full flex-col overflow-hidden py-3">
-        <div className="flex flex-row">
-          <motion.div
-            className="flex flex-row-reverse whitespace-nowrap min-w-full"
-            variants={carouselVariantsRight}
-            initial={{ x: "0%" }}
-            animate="animate"
-          >
-            {skillsReverse.map((skill, index) => (
-              <div key={index} className="flex flex-row items-center">
-                <h1 className="text-white text-5xl font-bold ">{skill}</h1>
-                <div className="w-10 h-[2px] mx-4"></div>
-              </div>
-            ))}
-            {skillsReverse.map((skill, index) => (
-              <div
-                key={`duplicate-${index}`}
-                className="flex flex-row items-center"
+      {/* Bottom carousel - going the opposite direction with different styling */}
+      <div className="relative w-full overflow-hidden py-6">
+        <div className="absolute inset-y-0 left-0 w-24 " />
+        <div className="absolute inset-y-0 right-0 w-24 " />
+        
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{
+            x: [-2000, 0],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 40,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...skillsReverse, ...skillsReverse, ...skillsReverse].map((skill, index) => (
+            <div key={index} className="inline-flex items-center group mx-3">
+              <motion.h1 
+                className="text-gray-400 text-5xl font-bold transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.05, 
+                  color: "#FFFFFF",
+                  textShadow: "0 0 8px rgba(255,255,255,0.4)"
+                }}
               >
-                <h1 className="text-white text-5xl font-bold">{skill}</h1>
-                <div className="w-10 h-[2px"></div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+                {skill}
+              </motion.h1>
+              <span className="mx-4 text-blue-500 opacity-50">•</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       <div className="relative w-full max-w-[90vw] flex items-center justify-center mt-8">

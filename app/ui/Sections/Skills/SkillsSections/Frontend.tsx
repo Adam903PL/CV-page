@@ -9,70 +9,118 @@ import ReactNativeIcon from "@/public/img/icons/react-native-app-icon.svg";
 import ReactIcon from "@/public/img/icons/react-js-icon.svg";
 import NextJsIcon from "@/public/img/icons/nextjs-icon.svg";
 import LottieFilesIcon from "@/public/img/icons/lottiefiles.svg";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaStar, FaRegStar, FaStarHalfAlt, FaCode, FaProjectDiagram } from "react-icons/fa";
+
+// Define levels of experience
+const ExperienceLevel = {
+  BEGINNER: "Beginner",
+  BASIC: "Basic",
+  INTERMEDIATE: "Intermediate",
+  ADVANCED: "Advanced",
+  EXPERT: "Expert"
+};
+
+// Define project counts
+const ProjectCount = {
+  FEW: "Few projects",
+  SEVERAL: "Several projects",
+  MANY: "Many projects"
+};
+
 const skillsArr = [
   {
     name: "React",
     icon: ReactIcon,
-    percentage: 70,
+    level: ExperienceLevel.INTERMEDIATE,
+    projects: 7,
     details:
       "Hooks architecture, Context API, performance optimization, Concurrent Mode.",
   },
   {
     name: "Next.js",
     icon: NextJsIcon,
-    percentage: 70,
+    level: ExperienceLevel.BASIC,
+    projects: 3,
     details: "App Router, SSR/ISR, API routes, middleware, and server actions.",
   },
   {
     name: "React Native",
     icon: ReactNativeIcon,
-    percentage: 60,
+    level: ExperienceLevel.BASIC,
+    projects: 2,
     details: "Cross-platform development, native modules, gesture handling.",
   },
   {
     name: "Lottie",
     icon: LottieFilesIcon,
-    percentage: 70,
+    level: ExperienceLevel.INTERMEDIATE,
+    projects: "Many",
     details:
       "Complex animations, After Effects integration, dynamic SVG manipulation.",
   },
   {
     name: "Tailwind CSS",
     icon: TailwindIcon,
-    percentage: 80,
+    level: ExperienceLevel.ADVANCED,
+    projects: "Several",
     details: "JIT compiler, custom plugins, responsive design patterns.",
   },
   {
     name: "Redux Toolkit",
     icon: ReduxIcon,
-    percentage: 60,
+    level: ExperienceLevel.INTERMEDIATE,
+    projects: "Several",
     details: "Slice patterns, RTK Query, middleware configuration.",
   },
   {
     name: "Zustand",
     icon: ZustandIcon,
-    percentage: 90,
+    level: ExperienceLevel.ADVANCED,
+    projects: "Many",
     details:
       "Simplified state management, reactive stores, TypeScript integration.",
   },
 ];
 
-const ProgressBar = ({ percentage }: { percentage: number }) => (
-  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-    <motion.div
-      initial={{ width: 0 }}
-      animate={{ width: `${percentage}%` }}
-      transition={{ duration: 1.5, ease: "easeOut" }}
-      className="h-full bg-[#00BD95] rounded-full"
-    />
-  </div>
-);
+// Component for rendering skill level as stars
+const SkillLevelStars = ({ level }) => {
+  let stars = 0;
+  
+  switch(level) {
+    case ExperienceLevel.EXPERT:
+      stars = 5;
+      break;
+    case ExperienceLevel.ADVANCED:
+      stars = 4;
+      break;
+    case ExperienceLevel.INTERMEDIATE:
+      stars = 3;
+      break;
+    case ExperienceLevel.BASIC:
+      stars = 2;
+      break;
+    case ExperienceLevel.BEGINNER:
+    default:
+      stars = 1;
+  }
+  
+  return (
+    <div className="flex items-center justify-center">
+      {[...Array(stars)].map((_, i) => (
+        <FaStar key={`full-${i}`} className="text-yellow-400 w-4 h-4" />
+      ))}
+      {[...Array(5 - stars)].map((_, i) => (
+        <FaRegStar key={`empty-${i}`} className="text-yellow-400 w-4 h-4" />
+      ))}
+    </div>
+  );
+};
 
 const Frontend = forwardRef((props, ref) => {
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState(null);
   const skill = skillsArr.find((s) => s.name === selectedSkill);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+
   useImperativeHandle(ref, () => ({
     handleBack: () => {
       if (selectedSkill) {
@@ -87,7 +135,7 @@ const Frontend = forwardRef((props, ref) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-full h-full flex flex-col relative overflow-y-auto p-4" // Dodano padding
+      className="w-full h-full flex flex-col relative overflow-y-auto p-4"
     >
       {!selectedSkill ? (
         <>
@@ -102,10 +150,11 @@ const Frontend = forwardRef((props, ref) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
                   className="flex flex-col items-center space-y-2 p-3 bg-white rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
-                  {/* Kontener dla ikony info */}
+                  {/* Info icon container */}
                   <div className="w-full flex justify-end pr-1">
                     <div
                       className="cursor-help relative"
@@ -156,10 +205,17 @@ const Frontend = forwardRef((props, ref) => {
                     {skill.name}
                   </h3>
                   <div className="w-full space-y-1">
-                    <ProgressBar percentage={skill.percentage} />
-                    <span className="text-xs text-gray-500 block text-center">
-                      {skill.percentage}%
-                    </span>
+                    <SkillLevelStars level={skill.level} />
+                    <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
+                      <div className="flex items-center">
+                        <FaCode className="mr-1 text-[#00BD95]" />
+                        <span>{skill.level}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FaProjectDiagram className="mr-1 text-[#00BD95]" />
+                        <span>{typeof skill.projects === 'number' ? `${skill.projects} projects` : skill.projects}</span>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -172,18 +228,51 @@ const Frontend = forwardRef((props, ref) => {
           animate={{ opacity: 1, x: 0 }}
           className="w-full h-full p-4 flex flex-col items-center justify-center"
         >
-          <Image
-            src={skill?.icon || ""}
-            alt={skill?.name || ""}
-            width={48}
-            height={48}
-          />
-          <h2 className="text-2xl font-semibold mt-3 text-gray-700">
-            {skill?.name}
-          </h2>
-          <p className="mt-3 text-base text-gray-500 text-center max-w-[300px]">
-            {skill?.details}
-          </p>
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-[#00BD95]/20 rounded-full flex items-center justify-center mr-4">
+                <Image
+                  src={skill?.icon || ""}
+                  alt={skill?.name || ""}
+                  width={24}
+                  height={24}
+                />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-gray-700">
+                  {skill?.name}
+                </h2>
+                <div className="flex items-center">
+                  <span className="text-sm text-[#00BD95] font-medium mr-2">
+                    {skill?.level}
+                  </span>
+                  <SkillLevelStars level={skill?.level} />
+                </div>
+              </div>
+            </div>
+            
+            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+              <h3 className="text-sm font-medium text-gray-600 mb-2">Experience</h3>
+              <p className="text-sm text-gray-500">
+                {skill?.details}
+              </p>
+            </div>
+            
+            <div className="flex items-center justify-between text-sm text-gray-500">
+              <div className="flex items-center">
+                <FaProjectDiagram className="mr-2 text-[#00BD95]" />
+                <span>{typeof skill?.projects === 'number' ? `${skill?.projects} projects` : skill?.projects}</span>
+              </div>
+              <div className="flex items-center">
+                <motion.div
+                  className="w-2 h-2 rounded-full bg-green-500 mr-2"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                />
+                <span>Actively using</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       )}
     </motion.div>

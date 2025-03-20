@@ -6,54 +6,111 @@ import DockerIcon from "@/public/img/icons/icons8-docker.svg";
 import VSCodeIcon from "@/public/img/icons/icons8-visual-studio-code-2019.svg";
 import PostmanIcon from "@/public/img/icons/postman-icon.svg";
 import JetBrains from "@/public/img/icons/icons8-jetbrains.svg";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaStar, FaRegStar, FaStarHalfAlt, FaCode, FaProjectDiagram, FaHeart, FaClock, FaBrain } from "react-icons/fa";
+
+// Define levels of experience
+const ExperienceLevel = {
+  BEGINNER: "Beginner",
+  BASIC: "Basic",
+  INTERMEDIATE: "Intermediate",
+  ADVANCED: "Advanced",
+  EXPERT: "Expert"
+};
+
+// Define usage frequency
+const UsageFrequency = {
+  RARELY: "Rarely used",
+  OCCASIONALLY: "Occasionally used",
+  FREQUENTLY: "Frequently used",
+  DAILY: "Daily driver"
+};
+
+// Define expertise levels
+const ExpertiseLevel = {
+  NOVICE: "Still learning",
+  COMFORTABLE: "Comfortable with",
+  PROFICIENT: "Proficient user",
+  EXPERT: "Power user"
+};
 
 const skillsArr = [
   {
     name: "Git",
     icon: GitIcon,
-    percentage: 70,
+    level: ExperienceLevel.ADVANCED,
+    usage: UsageFrequency.DAILY,
+    expertise: ExpertiseLevel.EXPERT,
     details:
-      "Daily driver for version control. Expert in complex branching strategies, interactive rebasing, and resolving merge conflicts. Mastery of Git Flow in team environments.",
+      "Version control virtuoso - can resolve merge conflicts in my sleep and branch strategies are second nature. Comfortable with interactive rebasing, cherry-picking, and stash management.",
   },
   {
     name: "VS Code",
     icon: VSCodeIcon,
-    percentage: 95,
+    level: ExperienceLevel.EXPERT,
+    usage: UsageFrequency.DAILY,
+    expertise: ExpertiseLevel.EXPERT,
     details:
-      "Primary editor with deep customization - advanced debugging configurations, integrated terminal workflows, and extension ecosystem mastery. Optimized for full-stack development.",
+      "My digital canvas - customized to pixel-perfect precision. Extension collection curated over years for the ultimate developer experience. Terminal integration and debugging flows that feel like magic.",
   },
   {
     name: "Postman",
     icon: PostmanIcon,
-    percentage: 50,
+    level: ExperienceLevel.INTERMEDIATE,
+    usage: UsageFrequency.FREQUENTLY,
+    expertise: ExpertiseLevel.PROFICIENT,
     details:
-      "Daily API testing toolkit - automated request chaining, environment variables, and CI/CD integration. Proficient in creating comprehensive testing collections.",
+      "API whisperer - crafting request collections that tell stories. Environment variables set up for seamless context switching between development environments. Automation scripts that make testing a breeze.",
   },
   {
     name: "JetBrains",
     icon: JetBrains,
-    percentage: 85,
+    level: ExperienceLevel.ADVANCED,
+    usage: UsageFrequency.FREQUENTLY,
+    expertise: ExpertiseLevel.PROFICIENT,
     details:
-      "Frequent WebStorm/Rider user - expert navigation in large codebases, database tool integration, and advanced refactoring techniques. Cross-IDE keymap proficiency.",
+      "IDE powerhouse - leveraging intelligent code completion and refactoring tools that read my mind. Database tools integration that makes SQL feel like poetry. Memory-optimized for performance.",
   },
+
 ];
 
-const ProgressBar = ({ percentage }: { percentage: number }) => (
-  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-    <motion.div
-      initial={{ width: 0 }}
-      animate={{ width: `${percentage}%` }}
-      transition={{ duration: 1.5, ease: "easeOut" }}
-      className="h-full bg-[#00BD95] rounded-full"
-    />
-  </div>
-);
+// Component for rendering skill level as stars
+const SkillLevelStars = ({ level }) => {
+  let stars = 0;
+  
+  switch(level) {
+    case ExperienceLevel.EXPERT:
+      stars = 5;
+      break;
+    case ExperienceLevel.ADVANCED:
+      stars = 4;
+      break;
+    case ExperienceLevel.INTERMEDIATE:
+      stars = 3;
+      break;
+    case ExperienceLevel.BASIC:
+      stars = 2;
+      break;
+    case ExperienceLevel.BEGINNER:
+    default:
+      stars = 1;
+  }
+  
+  return (
+    <div className="flex items-center justify-center">
+      {[...Array(stars)].map((_, i) => (
+        <FaStar key={`full-${i}`} className="text-yellow-400 w-4 h-4" />
+      ))}
+      {[...Array(5 - stars)].map((_, i) => (
+        <FaRegStar key={`empty-${i}`} className="text-yellow-400 w-4 h-4" />
+      ))}
+    </div>
+  );
+};
 
 const Tools = forwardRef((props, ref) => {
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState(null);
   const skill = skillsArr.find((s) => s.name === selectedSkill);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
 
   useImperativeHandle(ref, () => ({
     handleBack: () => {
@@ -69,12 +126,14 @@ const Tools = forwardRef((props, ref) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-full h-full flex flex-col relative overflow-y-auto"
+      className="w-full h-full flex flex-col relative overflow-y-auto p-4"
     >
       {!selectedSkill ? (
         <>
-          <h2 className="text-2xl text-gray-400 mb-4 text-center">Tools</h2>
-          <div className="flex-1 overflow-y-auto px-2 pb-4">
+          <h2 className="text-2xl text-gray-400 mb-4 text-center">
+            Development Toolkit
+          </h2>
+          <div className="flex-1 overflow-y-auto">
             <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
               {skillsArr.map((skill, index) => (
                 <motion.div
@@ -82,10 +141,11 @@ const Tools = forwardRef((props, ref) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex flex-col items-center space-y-2 p-3 bg-white rounded-lg shadow-sm cursor-pointer relative"
+                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
+                  className="flex flex-col items-center space-y-2 p-3 bg-white rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
-                  {/* Kontener dla ikony info */}
+                  {/* Info icon container */}
                   <div className="w-full flex justify-end pr-1">
                     <div
                       className="cursor-help relative"
@@ -120,11 +180,11 @@ const Tools = forwardRef((props, ref) => {
                             Data can be redrawn: AI generated
                           </motion.div>
                         </div>
-                      )}4
+                      )}
                     </div>
                   </div>
 
-                  {/* Reszta zawartości */}
+                  {/* Tool icon */}
                   <div className="w-12 h-12 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
                     <Image
                       src={skill.icon}
@@ -134,14 +194,25 @@ const Tools = forwardRef((props, ref) => {
                       height={24}
                     />
                   </div>
+                  
+                  {/* Tool name */}
                   <h3 className="text-base font-semibold text-gray-600 text-center">
                     {skill.name}
                   </h3>
-                  <div className="w-full space-y-1">
-                    <ProgressBar percentage={skill.percentage} />
-                    <span className="text-xs text-gray-500 block text-center">
-                      {skill.percentage}%
-                    </span>
+                  
+                  {/* Experience level as stars */}
+                  <SkillLevelStars level={skill.level} />
+                  
+                  {/* Usage frequency */}
+                  <div className="flex items-center space-x-1 text-gray-500">
+                    <FaClock className="w-3 h-3" />
+                    <span className="text-xs">{skill.usage}</span>
+                  </div>
+                  
+                  {/* Expertise level */}
+                  <div className="flex items-center space-x-1 text-gray-500">
+                    <FaBrain className="w-3 h-3" />
+                    <span className="text-xs">{skill.expertise}</span>
                   </div>
                 </motion.div>
               ))}
@@ -152,20 +223,47 @@ const Tools = forwardRef((props, ref) => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="w-full h-full p-4 flex flex-col items-center justify-center"
+          className="w-full h-full flex flex-col items-center justify-center"
         >
-          <Image
-            src={skill?.icon || ""}
-            alt={skill?.name || ""}
-            width={48}
-            height={48}
-          />
+          <div className="w-16 h-16 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
+            <Image
+              src={skill?.icon || ""}
+              alt={skill?.name || ""}
+              width={48}
+              height={48}
+            />
+          </div>
           <h2 className="text-2xl font-semibold mt-3 text-gray-700">
             {skill?.name}
           </h2>
-          <p className="mt-3 text-base text-gray-500 text-center max-w-[300px]">
+          
+          <div className="mt-4 flex flex-col items-center">
+            <div className="flex items-center space-x-2 text-gray-600">
+              <FaStar className="text-yellow-400" />
+              <span className="font-medium">{skill?.level}</span>
+            </div>
+            
+            <div className="flex items-center space-x-2 mt-2 text-gray-600">
+              <FaClock className="text-blue-400" />
+              <span>{skill?.usage}</span>
+            </div>
+            
+            <div className="flex items-center space-x-2 mt-2 text-gray-600">
+              <FaBrain className="text-purple-400" />
+              <span>{skill?.expertise}</span>
+            </div>
+          </div>
+          
+          <p className="mt-5 text-base text-gray-500 text-center max-w-md px-4">
             {skill?.details}
           </p>
+          
+          <button
+            className="mt-6 px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 transition-colors"
+            onClick={() => setSelectedSkill(null)}
+          >
+            Back to all tools
+          </button>
         </motion.div>
       )}
     </motion.div>

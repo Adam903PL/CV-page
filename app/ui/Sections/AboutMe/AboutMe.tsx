@@ -444,7 +444,7 @@ const AboutMe: React.FC = () => {
                     <p className="text-gray-300 text-sm">{stat.label}</p>
                   </motion.div>
                 ))}
-              </div>
+              </div>  
             </motion.div>
           </motion.div>
         </div>

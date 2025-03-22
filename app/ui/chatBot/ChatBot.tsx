@@ -11,12 +11,12 @@ import ReactMarkdown from "react-markdown";
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hey there! How can I help you today?", sender: "bot", isLoading: false },
+    { text: "Hi, ask me any question about Adam", sender: "bot", isLoading: false },
   ]);
   const [inputMessage, setInputMessage] = useState("");
   const messagesEndRef = useRef(null);
 
-  // Auto scroll to bottom of messages
+  
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -29,12 +29,12 @@ const ChatBot = () => {
     e.preventDefault();
     if (inputMessage.trim() === "") return;
  
-    // Add user message
+  
     const userMessage = inputMessage;
     setMessages([...messages, { text: userMessage, sender: "user", isLoading: false }]);
     setInputMessage("");
  
-    // Add loading message
+    
     setMessages(prevMessages => [
       ...prevMessages,
       { text: "", sender: "bot", isLoading: true }
@@ -43,16 +43,16 @@ const ChatBot = () => {
     try {
       const botResponse = await callLanguageModelAPI(userMessage);
      
-      // Replace loading message with actual response
+      
       setMessages(prevMessages =>
         prevMessages
-          .filter(msg => !msg.isLoading) // Remove loading message
-          .concat({ text: botResponse, sender: "bot", isLoading: false }) // Add actual response
+          .filter(msg => !msg.isLoading) 
+          .concat({ text: botResponse, sender: "bot", isLoading: false }) 
       );
     } catch (error) {
       console.error("Error getting response:", error);
      
-      // Replace loading message with error message
+      
       setMessages(prevMessages =>
         prevMessages
           .filter(msg => !msg.isLoading)
@@ -65,7 +65,7 @@ const ChatBot = () => {
     }
   };
 
-  // Animation variants
+  
   const chatButtonVariants = {
     initial: { scale: 0.8, opacity: 0 },
     animate: {

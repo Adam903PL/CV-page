@@ -10,6 +10,7 @@ import clsx from "clsx";
 import dynamic from 'next/dynamic';
 import NavBar from "./ui/Navbar"
 import MainFooter from "./ui/footer/Mainfooter";
+import ChatBot from "./ui/chatBot/ChatBot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <NavBar />
         <div className="relative z-10">{children}</div>
         <MainFooter/>
+        <ChatBot/>
       </body>
     </html>
   );

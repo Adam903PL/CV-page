@@ -122,6 +122,9 @@ const backgroundGlowVariants = {
 export default function Hero() {
   const typedElementRef = useRef(null);
   const { activeSection, setActiveSection } = useLinks();
+
+  const [imgLoading,setImgLoading] =  useState<boolean>(true)
+
   const [isHovering, setIsHovering] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.1,
@@ -213,9 +216,11 @@ export default function Hero() {
               >
                 <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
                 <div className="relative w-full h-full">
+                {imgLoading && <div className="absolute inset-0 bg-[#00ffc9] animate-pulse rounded-lg" />}
                   <Image
                     src="/img/me2.jpg"
                     alt="Adam Pukaluk"
+                    onLoadingComplete={() => setImgLoading(false)}
                     fill
                     sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"

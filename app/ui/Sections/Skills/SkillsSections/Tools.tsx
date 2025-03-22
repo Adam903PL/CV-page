@@ -70,7 +70,6 @@ const skillsArr = [
     details:
       "IDE powerhouse - leveraging intelligent code completion and refactoring tools that read my mind. Database tools integration that makes SQL feel like poetry. Memory-optimized for performance.",
   },
-
 ];
 
 // Component for rendering skill level as stars
@@ -98,10 +97,10 @@ const SkillLevelStars = ({ level }) => {
   return (
     <div className="flex items-center justify-center">
       {[...Array(stars)].map((_, i) => (
-        <FaStar key={`full-${i}`} className="text-yellow-400 w-4 h-4" />
+        <FaStar key={`full-${i}`} className="text-yellow-400 w-3 h-3 sm:w-4 sm:h-4" />
       ))}
       {[...Array(5 - stars)].map((_, i) => (
-        <FaRegStar key={`empty-${i}`} className="text-yellow-400 w-4 h-4" />
+        <FaRegStar key={`empty-${i}`} className="text-yellow-400 w-3 h-3 sm:w-4 sm:h-4" />
       ))}
     </div>
   );
@@ -126,15 +125,15 @@ const Tools = forwardRef((props, ref) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-full h-full flex flex-col relative overflow-y-auto p-4"
+      className="w-full h-full flex flex-col relative overflow-y-auto p-2 sm:p-4"
     >
       {!selectedSkill ? (
         <>
-          <h2 className="text-2xl text-gray-400 mb-4 text-center">
+          <h2 className="text-xl sm:text-2xl text-gray-400 mb-3 sm:mb-4 text-center">
             Development Toolkit
           </h2>
           <div className="flex-1 overflow-y-auto">
-            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-4 max-w-2xl mx-auto">
               {skillsArr.map((skill, index) => (
                 <motion.div
                   key={skill.name}
@@ -142,7 +141,7 @@ const Tools = forwardRef((props, ref) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-                  className="flex flex-col items-center space-y-2 p-3 bg-white rounded-lg shadow-sm cursor-pointer"
+                  className="flex flex-col items-center space-y-1 sm:space-y-2 p-2 sm:p-3 bg-white rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
                   {/* Info icon container */}
@@ -156,7 +155,7 @@ const Tools = forwardRef((props, ref) => {
                       <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-500" />
 
                       {hoveredSkill === skill.name && (
-                        <div className="absolute top-full right-0 mt-1 overflow-hidden">
+                        <div className="absolute top-full right-0 mt-1 overflow-hidden z-10">
                           <motion.div
                             initial={{
                               opacity: 0,
@@ -175,7 +174,7 @@ const Tools = forwardRef((props, ref) => {
                               type: "tween",
                               duration: 0.3,
                             }}
-                            className="bg-gray-800 text-white text-xs px-3 py-[3px] rounded-full shadow-lg z-10 whitespace-nowrap"
+                            className="bg-gray-800 text-white text-xs px-3 py-[3px] rounded-full shadow-lg whitespace-nowrap"
                           >
                             Data can be redrawn: AI generated
                           </motion.div>
@@ -185,18 +184,18 @@ const Tools = forwardRef((props, ref) => {
                   </div>
 
                   {/* Tool icon */}
-                  <div className="w-12 h-12 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
                     <Image
                       src={skill.icon}
                       alt={skill.name}
-                      className="w-6 h-6"
+                      className="w-5 h-5 sm:w-6 sm:h-6"
                       width={24}
                       height={24}
                     />
                   </div>
                   
                   {/* Tool name */}
-                  <h3 className="text-base font-semibold text-gray-600 text-center">
+                  <h3 className="text-sm sm:text-base font-semibold text-gray-600 text-center">
                     {skill.name}
                   </h3>
                   
@@ -204,15 +203,15 @@ const Tools = forwardRef((props, ref) => {
                   <SkillLevelStars level={skill.level} />
                   
                   {/* Usage frequency */}
-                  <div className="flex items-center space-x-1 text-gray-500">
-                    <FaClock className="w-3 h-3" />
-                    <span className="text-xs">{skill.usage}</span>
+                  <div className="flex items-center space-x-1 text-gray-500 max-w-full min-w-0">
+                    <FaClock className="w-3 h-3 flex-shrink-0" />
+                    <span className="text-[10px] sm:text-xs truncate">{skill.usage}</span>
                   </div>
                   
                   {/* Expertise level */}
-                  <div className="flex items-center space-x-1 text-gray-500">
-                    <FaBrain className="w-3 h-3" />
-                    <span className="text-xs">{skill.expertise}</span>
+                  <div className="flex items-center space-x-1 text-gray-500 max-w-full min-w-0">
+                    <FaBrain className="w-3 h-3 flex-shrink-0" />
+                    <span className="text-[10px] sm:text-xs truncate">{skill.expertise}</span>
                   </div>
                 </motion.div>
               ))}
@@ -223,43 +222,44 @@ const Tools = forwardRef((props, ref) => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="w-full h-full flex flex-col items-center justify-center"
+          className="w-full h-full flex flex-col items-center justify-center p-3 sm:p-4"
         >
-          <div className="w-16 h-16 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#00BD95]/20 flex items-center justify-center">
             <Image
               src={skill?.icon || ""}
               alt={skill?.name || ""}
-              width={48}
-              height={48}
+              className="w-6 h-6 sm:w-8 sm:h-8"
+              width={32}
+              height={32}
             />
           </div>
-          <h2 className="text-2xl font-semibold mt-3 text-gray-700">
+          <h2 className="text-xl sm:text-2xl font-semibold mt-2 sm:mt-3 text-gray-700">
             {skill?.name}
           </h2>
           
-          <div className="mt-4 flex flex-col items-center">
+          <div className="mt-3 sm:mt-4 flex flex-col items-center">
             <div className="flex items-center space-x-2 text-gray-600">
-              <FaStar className="text-yellow-400" />
-              <span className="font-medium">{skill?.level}</span>
+              <FaStar className="text-yellow-400 w-4 h-4" />
+              <span className="font-medium text-sm sm:text-base">{skill?.level}</span>
             </div>
             
             <div className="flex items-center space-x-2 mt-2 text-gray-600">
-              <FaClock className="text-blue-400" />
-              <span>{skill?.usage}</span>
+              <FaClock className="text-blue-400 w-4 h-4" />
+              <span className="text-sm sm:text-base">{skill?.usage}</span>
             </div>
             
             <div className="flex items-center space-x-2 mt-2 text-gray-600">
-              <FaBrain className="text-purple-400" />
-              <span>{skill?.expertise}</span>
+              <FaBrain className="text-purple-400 w-4 h-4" />
+              <span className="text-sm sm:text-base">{skill?.expertise}</span>
             </div>
           </div>
           
-          <p className="mt-5 text-base text-gray-500 text-center max-w-md px-4">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base text-gray-500 text-center max-w-md px-3 sm:px-4">
             {skill?.details}
           </p>
           
           <button
-            className="mt-6 px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 transition-colors"
+            className="mt-4 sm:mt-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 transition-colors text-sm sm:text-base"
             onClick={() => setSelectedSkill(null)}
           >
             Back to all tools

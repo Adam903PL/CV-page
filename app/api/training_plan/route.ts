@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { DataManager } from '../data/training-plan/dataManager';
 
 export async function GET(request: NextRequest) {
-  // Sprawdzenie, czy mamy parametr ID w URL
+  // 
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
   

@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 export const BackgroundCircles = () => {
     return (
-      <div className="absolute inset-0 overflow-hidden z-0 blur-[2px]">
+      <div className="absolute inset-0 overflow-hidden z-0">
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 200 200"

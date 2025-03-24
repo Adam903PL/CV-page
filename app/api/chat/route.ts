@@ -27,6 +27,9 @@ const AboutMeData =`
 ## 📝 Podsumowanie zawodowe
 Adam to 15-letni programista z pasją do tworzenia aplikacji zarówno po stronie backendu jak i frontendu. Programuje od ponad 2 lat, głównie w JavaScript i Python, budując aplikacje z wykorzystaniem Express.js i Next.js. Interesuje się szczególnie programowaniem backendowym i cyberbezpieczeństwem, ciesząc się tworzeniem bezpiecznych i wydajnych aplikacji, jednocześnie nieustannie rozwijając swoje umiejętności w zakresie nowoczesnych technologii webowych.
 
+## Moja Historia
+Programowaniem się zainterossałem za pośrednictwem mojego ojsca który jest kierownikem działu programistycznego. Często mi tłumaczył jak działa programowanie itp. Pierwszy raz z progrmaowaniem zatkołem się chyba w wieku 9 lat gdy poszedłem na kurs programowania robótów Lego Mindstorm EV3. Po pewnym czsie zaoczłem programować w scratchu a nastepnie w unreal engie. w 7 klasie podstawówki poznałem pythona i zaczołem się uczyć jego podstaw nastepnie trafiłem do TechniSchols w lublinie gdzie zaczała się moja prawdzia przygoda z programowaniem 
+
 ## 💻 Umiejętności techniczne
 
 ### Języki programowania
@@ -76,7 +79,9 @@ Adam to 15-letni programista z pasją do tworzenia aplikacji zarówno po stronie
 ## 🚀 Projekty
 
 ### 1. FlashTalkAI
-- **Opis**: Platforma do nauki języków wspierana przez AI
+- **Opis**: Platforma do nauki narazi eytlko niemieckiego języków wspierana przez AI. 
+  Jest możliwość prowadzenia lekcji z atystenem AI gdzie wybierasz na stronie o jakim chcesz  
+  porozmawiać z chatem a potem prowadzić po niemiecku rozmowe na ten temat. Jest możliwość nauki słowek z 5 unitów a potem zrobienie testu z każdego z tych działów
 - **Technologie**: TypeScript, Tailwind, Express.JS, PostgreSQL, DeepSeekAPI
 - **Typ**: Aplikacja webowa
 - **Linki**: 
@@ -84,21 +89,25 @@ Adam to 15-letni programista z pasją do tworzenia aplikacji zarówno po stronie
   - Demo: [flashtalkai.com](https://flashtalkai.com)
 
 ### 2. TechniFees
-- **Opis**: Pierwsza prosta aplikacja do zarządzania opłatami szkolnymi
+- **Opis**: Jest to moja app napisana w Pythonei bardzo prosta i jej kod jest dosyć haotyczny i małocyztelny ponieważ były to moje początki z programowaiem.
+ App jest dla np szkół by klasy mogły zarządzać swoimi skłądaki uczniów jest panel admian gdzi emożna dodawać skłądki
+  i nimi zarzdzać oraz profil ucznia gdzi emoże zobaczyć za jakie skłądki zapąłcić a za jakie nie
 - **Technologie**: Python, Tkinter, smtplib, PostgreSQL
 - **Typ**: Aplikacja desktopowa
 - **Linki**:
   - Repozytorium: [GitHub](https://github.com/Adam903PL/TechniFees)
 
 ### 3. TechniCloud
-- **Opis**: Podstawowa aplikacja mobilna
+- **Opis**: Podstawowa aplikacja mobilna napisania w react naivenative. Chmura do zarządzania plikami
 - **Technologie**: React Native
 - **Typ**: Aplikacja mobilna
 - **Linki**:
   - Repozytorium: [GitHub](https://github.com/Adam903PL/Native-Cloud)
 
 ### 4. TechniBank
-- **Opis**: System bankowy do zarządzania finansami osobistymi
+- **Opis**: System bankowy do zarządzania finansami osobistymi. Jest to czyty fontend bez backendu napisałem to z kolegą na pierwszy projekt szkolny.
+   App zawiera kantor wymiany walut gdzie oraz kupno  krypto( tylko wizualnie to jest nie zapisuje nigdy co i za ile kupiłeś).
+   Jest panel twoich aktyw bankowych  + panel gdzie mozes zywysłąć przelwey rożnymi drogami.
 - **Technologie**: HTML5, CSS, JS
 - **Typ**: Aplikacja webowa
 - **Linki**:
@@ -115,7 +124,7 @@ Adam to 15-letni programista z pasją do tworzenia aplikacji zarówno po stronie
 1. **Rozwój Backend**: Programowanie serwerowe, tworzenie API, zarządzanie bazami danych
 2. **Rozwój Frontend**: Implementacja UI/UX, responsywny design, zarządzanie stanem
 3. **Rozwój Full Stack**: Kompleksowe tworzenie aplikacji
-4. **Bezpieczeństwo**: Podstawowa implementacja cyberbezpieczeństwa
+4. **Bezpieczeństwo**: Lubie zadania CTF i często je sb wykonuej umiem obługiwać linuxa robić rposte ataki DDOS i BruteForce oraz proste rozpatzrzenie na stronie pod katem jakiś luk w bezpieczeńśtwie
 5. **Terminal**: Operacje i skrypty wiersza poleceń
 
 ## 🌐 Komponenty strony portfolio

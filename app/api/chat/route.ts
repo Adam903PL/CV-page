@@ -124,44 +124,37 @@ const API_KEY = env.DEEPSEEK_API;
 export async function POST(request: NextRequest) {
   try {
     if (!API_KEY) {
-      console.error("DeepSeek API key is not configured");
+      console.error("OpenAI API key is not configured");
       return NextResponse.json(
         { error: "Chat service is not properly configured. Please try again later." },
         { status: 500 }
       );
     }
-
     const { message } = await request.json();
-    console.log("Received message:", message); // Debug log
-
+    console.log("Received message:", message); 
     const openai = new OpenAI({
-      baseURL: "https://api.deepseek.com",
       apiKey: API_KEY,
     });
-
-    const systemPrompt = `You are a helpful assistant for Adam Pukaluk's portfolio website. You have access to information about Adam's skills, projects, and experience. 
-    Your role is to provide accurate information about Adam based on the data provided. 
+    const systemPrompt = `You are a helpful assistant for Adam Pukaluk's portfolio website. You have access to information about Adam's skills, projects, and experience.
+    Your role is to provide accurate information about Adam based on the data provided.
     If you're not sure about something or if the question is completely unrelated to Adam's portfolio, politely explain that you can only provide information about Adam's portfolio and experience.
     Be friendly and professional in your responses.`;
-
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
         { role: "system", content: AboutMeData },
         { role: "user", content: message }
       ],
-      model: "deepseek-chat",
+      model: "gpt-3.5-turbo",
       temperature: 0.7,
       max_tokens: 1000
     });
-
-    console.log("API Response:", completion.choices[0].message.content); // Debug log
-
-    return NextResponse.json({ 
-      response: completion.choices[0].message.content 
+    console.log("API Response:", completion.choices[0].message.content); 
+    return NextResponse.json({
+      response: completion.choices[0].message.content
     });
   } catch (error) {
-    console.error("Detailed error:", error); // More detailed error logging
+    console.error("Detailed error:", error); // 
     return NextResponse.json(
       { error: "I apologize, but I encountered an error processing your request. Please try again." },
       { status: 500 }

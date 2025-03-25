@@ -1,17 +1,8 @@
 import dotenv from "dotenv"
 
 // Load environment variables from .env file in development
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config()
-}
-
-
-const requiredEnvVars = ['NEXT_PUBLIC_DEEPSEEK_API'] as const;
-
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    console.error(`Missing required environment variable: ${envVar}`);
-  }
+if(!process.env.NEXT_PUBLIC_DEEPSEEK_API){
+    console.error("DeepSeek API key is not configured");
 }
 
 export const env = {

@@ -140,7 +140,7 @@ Portfolio Adama zawiera zaawansowane animacje i nowoczesne elementy designu, w t
 - Profesjonalna prezentacja skupiająca się zarówno na umiejętnościach technicznych, jak i demonstracji projektów
 `
 
-const API_KEY = env.DEEPSEEK_API;
+const API_KEY = process.env.NEXT_PUBLIC_DEEPSEEK_API;
 
 export async function POST(request:NextRequest) {
   try {

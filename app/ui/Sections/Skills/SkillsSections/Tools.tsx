@@ -106,6 +106,7 @@ const SkillLevelStars = ({ level }) => {
   );
 };
 
+
 const Tools = forwardRef((props, ref) => {
   const [selectedSkill, setSelectedSkill] = useState(null);
   const skill = skillsArr.find((s) => s.name === selectedSkill);
@@ -129,7 +130,7 @@ const Tools = forwardRef((props, ref) => {
     >
       {!selectedSkill ? (
         <>
-          <h2 className="text-xl sm:text-2xl text-gray-400 mb-3 sm:mb-4 text-center">
+          <h2 className="text-xl sm:text-2xl text-gray-200 mb-3 sm:mb-4 text-center">
             Development Toolkit
           </h2>
           <div className="flex-1 overflow-y-auto">
@@ -140,8 +141,8 @@ const Tools = forwardRef((props, ref) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-                  className="flex flex-col items-center space-y-1 sm:space-y-2 p-2 sm:p-3 bg-white rounded-lg shadow-sm cursor-pointer"
+                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(255,255,255,0.1)" }}
+                  className="flex flex-col items-center space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-800 rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
                   {/* Info icon container */}
@@ -152,7 +153,7 @@ const Tools = forwardRef((props, ref) => {
                       onMouseLeave={() => setHoveredSkill(null)}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-500" />
+                      <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-300" />
 
                       {hoveredSkill === skill.name && (
                         <div className="absolute top-full right-0 mt-1 overflow-hidden z-10">
@@ -174,7 +175,7 @@ const Tools = forwardRef((props, ref) => {
                               type: "tween",
                               duration: 0.3,
                             }}
-                            className="bg-gray-800 text-white text-xs px-3 py-[3px] rounded-full shadow-lg whitespace-nowrap"
+                            className="bg-gray-700 text-white text-xs px-3 py-[3px] rounded-full shadow-lg whitespace-nowrap"
                           >
                             Data can be redrawn: AI generated
                           </motion.div>
@@ -195,7 +196,7 @@ const Tools = forwardRef((props, ref) => {
                   </div>
                   
                   {/* Tool name */}
-                  <h3 className="text-sm sm:text-base font-semibold text-gray-600 text-center">
+                  <h3 className="text-sm sm:text-base font-semibold text-gray-200 text-center">
                     {skill.name}
                   </h3>
                   
@@ -203,13 +204,13 @@ const Tools = forwardRef((props, ref) => {
                   <SkillLevelStars level={skill.level} />
                   
                   {/* Usage frequency */}
-                  <div className="flex items-center space-x-1 text-gray-500 max-w-full min-w-0">
+                  <div className="flex items-center space-x-1 text-gray-400 max-w-full min-w-0">
                     <FaClock className="w-3 h-3 flex-shrink-0" />
                     <span className="text-[10px] sm:text-xs truncate">{skill.usage}</span>
                   </div>
                   
                   {/* Expertise level */}
-                  <div className="flex items-center space-x-1 text-gray-500 max-w-full min-w-0">
+                  <div className="flex items-center space-x-1 text-gray-400 max-w-full min-w-0">
                     <FaBrain className="w-3 h-3 flex-shrink-0" />
                     <span className="text-[10px] sm:text-xs truncate">{skill.expertise}</span>
                   </div>
@@ -233,33 +234,33 @@ const Tools = forwardRef((props, ref) => {
               height={32}
             />
           </div>
-          <h2 className="text-xl sm:text-2xl font-semibold mt-2 sm:mt-3 text-gray-700">
+          <h2 className="text-xl sm:text-2xl font-semibold mt-2 sm:mt-3 text-gray-200">
             {skill?.name}
           </h2>
           
           <div className="mt-3 sm:mt-4 flex flex-col items-center">
-            <div className="flex items-center space-x-2 text-gray-600">
+            <div className="flex items-center space-x-2 text-gray-300">
               <FaStar className="text-yellow-400 w-4 h-4" />
               <span className="font-medium text-sm sm:text-base">{skill?.level}</span>
             </div>
             
-            <div className="flex items-center space-x-2 mt-2 text-gray-600">
+            <div className="flex items-center space-x-2 mt-2 text-gray-300">
               <FaClock className="text-blue-400 w-4 h-4" />
               <span className="text-sm sm:text-base">{skill?.usage}</span>
             </div>
             
-            <div className="flex items-center space-x-2 mt-2 text-gray-600">
+            <div className="flex items-center space-x-2 mt-2 text-gray-300">
               <FaBrain className="text-purple-400 w-4 h-4" />
               <span className="text-sm sm:text-base">{skill?.expertise}</span>
             </div>
           </div>
           
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base text-gray-500 text-center max-w-md px-3 sm:px-4">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base text-gray-400 text-center max-w-md px-3 sm:px-4">
             {skill?.details}
           </p>
           
           <button
-            className="mt-4 sm:mt-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 transition-colors text-sm sm:text-base"
+            className="mt-4 sm:mt-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 transition-colors text-sm sm:text-base"
             onClick={() => setSelectedSkill(null)}
           >
             Back to all tools

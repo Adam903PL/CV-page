@@ -45,19 +45,17 @@ const LaptopScreen = () => {
   };
 
   const handleGlobalBack = () => {
-    // Jeśli aktywnym ekranem jest "frontend", spróbujmy obsłużyć cofanie wewnętrzne
     if (activeScreen === "frontend" && activeComponentRef.current) {
       const handled = activeComponentRef.current.handleBack();
       if (handled) return;
     }
-    // W przeciwnym razie wracamy do głównego widoku wyboru
     setActiveScreen(null);
   };
 
   return (
-    <div className="flex flex-col items-center w-[900px]">
-      <div className="w-full h-[500px] bg-gray-800 border-8 border-gray-700 rounded-t-lg shadow-lg flex flex-col items-center justify-center">
-        <div className="w-full h-full bg-[#F0F0F0] p-6 flex flex-col items-center text-white overflow-hidden">
+    <div className="flex flex-col items-center w-full max-w-[900px] mx-auto px-4 sm:px-0">
+      <div className="w-full h-[500px] sm:h-[500px] bg-gray-900 border-8 border-gray-800 rounded-t-lg shadow-lg flex flex-col items-center justify-center">
+        <div className="w-full h-full bg-[#1a2029] p-4 sm:p-6 flex flex-col items-center text-white overflow-hidden">
           {!ActiveComponent ? (
             <motion.div
               initial="hidden"
@@ -67,12 +65,12 @@ const LaptopScreen = () => {
             >
               <motion.h1
                 variants={itemVariants}
-                className="text-5xl text-gray-400 text-center mb-10"
+                className="text-3xl sm:text-5xl text-gray-300 text-center mb-6 sm:mb-10"
               >
                 Explore my skills
               </motion.h1>
               <motion.div
-                className="grid grid-cols-2 gap-6 max-w-2xl"
+                className="grid grid-cols-2 gap-4 sm:gap-6 max-w-2xl"
                 variants={containerVariants}
               >
                 {[
@@ -81,43 +79,43 @@ const LaptopScreen = () => {
                     icon: FaCode,
                     label: "Programming Languages",
                     color: "#00BD95",
+                    bgColor: "bg-[rgba(0,189,149,0.3)]",
                   },
                   {
                     id: "frontend",
                     icon: FaDesktop,
                     label: "Frontend",
-                    color: "#707070",
+                    color: "#00BD95",
+                    bgColor: "bg-[rgba(0,189,149,0.3)]",
                   },
                   {
                     id: "backend",
                     icon: FaDatabase,
                     label: "Backend",
-                    color: "#707070",
+                    color: "#00BD95",
+                    bgColor: "bg-[rgba(0,189,149,0.3)]",
                   },
                   {
                     id: "tools",
                     icon: FaTools,
                     label: "Tools",
                     color: "#00BD95",
+                    bgColor: "bg-[rgba(0,189,149,0.3)]",
                   },
                 ].map((item) => (
                   <motion.div
                     key={item.id}
                     variants={itemVariants}
-                    className={`group relative bg-[rgba(${
-                      item.color === "#00BD95" ? "0,189,149" : "217,217,217"
-                    },0.4)] rounded-[2rem] w-64 h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[${
-                      item.color
-                    }] cursor-pointer`}
+                    className={`group relative ${item.bgColor} rounded-[2rem] w-full sm:w-64 h-24 sm:h-32 flex items-center justify-center shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:border-[8px] hover:border-[${item.color}] cursor-pointer`}
                     onClick={() => setActiveScreen(item.id)}
                   >
                     <div className="flex flex-col items-center">
                       <item.icon
-                        className={`text-4xl mb-2`}
+                        className={`text-2xl sm:text-4xl mb-1 sm:mb-2`}
                         style={{ color: item.color }}
                       />
                       <span
-                        className={`text-lg font-semibold`}
+                        className={`text-sm sm:text-lg font-semibold`}
                         style={{ color: item.color }}
                       >
                         {item.label}
@@ -132,20 +130,15 @@ const LaptopScreen = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
-              className="w-full h-full flex flex-col items-center p-6 relative"
+              className="w-full h-full flex flex-col items-center p-4 sm:p-6 relative"
             >
-              
-
-
               <button
                 onClick={handleGlobalBack}
-                className="absolute top-4 right-4 text-black hover:text-gray-700 cursor-pointer"
+                className="absolute top-4 right-4 text-white hover:text-gray-300 cursor-pointer"
               >
-                <FaArrowLeft className="text-2xl" />
+                <FaArrowLeft className="text-xl sm:text-2xl" />
               </button>
-              
-              
-              
+
               {activeScreen === "frontend" ? (
                 <ActiveComponent ref={activeComponentRef} />
               ) : (
@@ -156,7 +149,7 @@ const LaptopScreen = () => {
         </div>
       </div>
 
-      {/* Dolny pasek (np. pasek symulujący ekran laptopa) */}
+      {/* Bottom bar (simulating laptop/mobile screen) */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{
@@ -169,9 +162,9 @@ const LaptopScreen = () => {
             damping: 20,
           },
         }}
-        className="w-[80%] h-[100px] bg-gray-700 rounded-b-lg shadow-lg flex items-center justify-center gap-4 mb-4"
+        className="w-full sm:w-[80%] h-[60px] sm:h-[100px] bg-gray-900 rounded-b-lg shadow-lg flex items-center justify-center gap-2 sm:gap-4 mb-4"
       >
-        <div className="w-3/4 h-12 bg-gray-600 rounded-md flex items-center justify-center">
+        <div className="w-3/4 h-8 sm:h-12 bg-gray-800 rounded-md flex items-center justify-center">
           <motion.div
             className="grid grid-cols-10 gap-1"
             initial={{ opacity: 0 }}
@@ -179,12 +172,12 @@ const LaptopScreen = () => {
             transition={{ delay: 1.2 }}
           >
             {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="w-4 h-4 bg-gray-500 rounded-sm" />
+              <div key={i} className="w-2 h-2 sm:w-4 sm:h-4 bg-gray-700 rounded-sm" />
             ))}
           </motion.div>
         </div>
         <motion.div
-          className="w-24 h-16 bg-gray-600 rounded-md"
+          className="w-16 h-10 sm:w-24 sm:h-16 bg-gray-800 rounded-md"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 1.4, type: "spring" }}

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPhone, FaCode, FaGithub, FaMailBulk } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import CountUp from "react-countup";
 import { Tooltip } from "react-tooltip";
 import useSWR from "swr";
@@ -122,6 +122,8 @@ const repoButtonVariants = {
 };
 
 const AboutMe: React.FC = () => {
+
+
   const title = "Adam Pukaluk - FullStack Developer";
   const skills = [
     "React",
@@ -175,6 +177,8 @@ const AboutMe: React.FC = () => {
       id="aboutme"
       className="relative overflow-hidden bg-[#171c22] min-h-screen"
     >
+
+
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-[#00bd95]/15 to-[#00FFC9]/15 rounded-full blur-3xl"
         variants={waveVariants}
@@ -213,7 +217,10 @@ const AboutMe: React.FC = () => {
               and Next.js. My dream? Landing an internship to soar higher in the
               IT world!
             </p>
-            <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
+            <motion.div
+              className="flex flex-wrap gap-4"
+              variants={itemVariants}
+            >
               <motion.a
                 href="tel:695031104"
                 className="flex items-center justify-center gap-2 bg-[#20272F] text-white px-6 py-3 rounded-full shadow-lg"
@@ -366,9 +373,7 @@ const AboutMe: React.FC = () => {
                         </motion.div>
                       ))
                     ) : (
-                      <p className="text-gray-300 text-center col-span-2">
-                        
-                      </p>
+                      <p className="text-gray-300 text-center col-span-2"></p>
                     )}
                   </div>
                 </div>
@@ -435,7 +440,7 @@ const AboutMe: React.FC = () => {
                     <p className="text-gray-300 text-sm">{stat.label}</p>
                   </motion.div>
                 ))}
-              </div>  
+              </div>
             </motion.div>
           </motion.div>
         </div>

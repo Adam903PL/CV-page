@@ -75,6 +75,7 @@ const Education = () => {
 
   return (
     <section ref={containerRef} id="education" className="relative overflow-hidden bg-[#171c22] min-h-screen py-12 px-6 lg:px-12">
+      
       <BackgroundCircles />
       <motion.div className="relative max-w-6xl mx-auto" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
         <motion.h1 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">My Education Journey</motion.h1>

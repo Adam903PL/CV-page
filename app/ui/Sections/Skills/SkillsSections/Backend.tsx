@@ -128,6 +128,8 @@ const SkillLevelStars = ({ level }) => {
   );
 };
 
+
+
 const Backend = forwardRef((props, ref) => {
   const [selectedSkill, setSelectedSkill] = useState(null);
   const skill = skillsArr.find((s) => s.name === selectedSkill);
@@ -151,7 +153,7 @@ const Backend = forwardRef((props, ref) => {
     >
       {!selectedSkill ? (
         <>
-          <h2 className="text-xl sm:text-2xl text-gray-400 mb-3 sm:mb-4 text-center">
+          <h2 className="text-xl sm:text-2xl text-gray-200 mb-3 sm:mb-4 text-center">
             Backend Skills
           </h2>
           <div className="flex-1 overflow-y-auto">
@@ -162,8 +164,8 @@ const Backend = forwardRef((props, ref) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-                  className="flex flex-col items-center space-y-1 sm:space-y-2 p-2 sm:p-3 bg-white rounded-lg shadow-sm cursor-pointer"
+                  whileHover={{ scale: 1.03, boxShadow: "0 4px 12px rgba(255,255,255,0.1)" }}
+                  className="flex flex-col items-center space-y-1 sm:space-y-2 p-2 sm:p-3 bg-gray-800 rounded-lg shadow-sm cursor-pointer"
                   onClick={() => setSelectedSkill(skill.name)}
                 >
                   {/* Info icon container */}
@@ -174,7 +176,7 @@ const Backend = forwardRef((props, ref) => {
                       onMouseLeave={() => setHoveredSkill(null)}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-500" />
+                      <FaInfoCircle className="w-3 h-3 text-gray-400 hover:text-gray-300" />
 
                       {hoveredSkill === skill.name && (
                         <div className="absolute top-full right-0 mt-1 overflow-hidden z-10">
@@ -196,7 +198,7 @@ const Backend = forwardRef((props, ref) => {
                               type: "tween",
                               duration: 0.3,
                             }}
-                            className="bg-gray-800 text-white text-xs px-3 py-[3px] rounded-full shadow-lg whitespace-nowrap"
+                            className="bg-gray-700 text-white text-xs px-3 py-[3px] rounded-full shadow-lg whitespace-nowrap"
                           >
                             Data can be redrawn: AI generated
                           </motion.div>
@@ -213,7 +215,7 @@ const Backend = forwardRef((props, ref) => {
                       height={20}
                     />
                   </div>
-                  <h3 className="text-xs sm:text-sm font-semibold text-gray-600 text-center">
+                  <h3 className="text-xs sm:text-sm font-semibold text-gray-200 text-center">
                     {skill.name}
                   </h3>
                   <div className="w-full space-y-1">
@@ -240,7 +242,7 @@ const Backend = forwardRef((props, ref) => {
           animate={{ opacity: 1, x: 0 }}
           className="w-full h-full p-2 sm:p-4 flex flex-col items-center justify-center"
         >
-          <div className="bg-white p-3 sm:p-6 rounded-lg shadow-lg max-w-md w-full">
+          <div className="bg-gray-800 p-3 sm:p-6 rounded-lg shadow-lg max-w-md w-full">
             <div className="flex items-center mb-3 sm:mb-4">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#00BD95]/20 rounded-full flex items-center justify-center mr-3 sm:mr-4">
                 <Image
@@ -251,7 +253,7 @@ const Backend = forwardRef((props, ref) => {
                 />
               </div>
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-200">
                   {skill?.name}
                 </h2>
                 <div className="flex items-center">
@@ -263,9 +265,9 @@ const Backend = forwardRef((props, ref) => {
               </div>
             </div>
             
-            <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-gray-50 rounded-lg">
-              <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1 sm:mb-2">Experience</h3>
-              <p className="text-xs sm:text-sm text-gray-500">
+            <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-gray-700 rounded-lg">
+              <h3 className="text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">Experience</h3>
+              <p className="text-xs sm:text-sm text-gray-400">
                 {skill?.details}
               </p>
             </div>

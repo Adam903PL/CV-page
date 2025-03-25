@@ -113,18 +113,18 @@ const ChatBot = () => {
     }),
   };
 
-  // Function to render message content (text or loading indicator)
+  
   const renderMessageContent = (message) => {
     if (message.isLoading) {
       return <LoadingDots color="#00BD95" size={10} spacing={4} />;
     }
     
-    // If bot message, render as Markdown, otherwise show as plain text
+    
     return message.sender === "bot" ? (
       <ReactMarkdown 
         
         components={{
-          // Style code blocks with a darker background
+          
           code: ({ node, inline, className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || '');
             return !inline ? (

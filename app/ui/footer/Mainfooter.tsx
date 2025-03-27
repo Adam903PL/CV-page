@@ -16,7 +16,7 @@ const MainFooter = () => {
         >
           {/* Branding or Name */}
           <h3 className="text-2xl font-bold text-white mb-4">
-            Adam <span className="text-[#00BD95]">Pukałuk</span>
+            Adam <span className="text-[#00BD95]">Pukaluk</span>
           </h3>
 
           {/* Tagline or Description */}

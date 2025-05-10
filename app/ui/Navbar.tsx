@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSection } from "../lib/zustand/useSection";
+import { useSection } from "../lib/hooks/useSection";
 import Link from "next/link";
-import { useLinks } from "../lib/zustand/useLinks";
+import { useLinks } from "../lib/hooks/useLinks";
 import { FaBars, FaTimes, FaHome } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import useMeasure from "react-use-measure";

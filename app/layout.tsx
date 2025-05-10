@@ -33,6 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased`)}>
+
+
         <NavBar />
         <div className="relative z-10">{children}</div>
         <MainFooter/>

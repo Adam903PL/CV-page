@@ -4,7 +4,7 @@ import { FaDownload, FaCode, FaServer, FaLaptopCode } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 import Link from "next/link";
-import { useLinks } from "../lib/zustand/useLinks";
+import { useLinks } from "../lib/hooks/useLinks";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";

@@ -48,7 +48,7 @@ const MainFooter = () => {
 
           {/* Copyright */}
           <p className="text-sm">
-            &copy; {new Date().getFullYear()} Adam Pukałuk. All rights reserved.
+            &copy; {new Date().getFullYear()} Adam Pukaluk. All rights reserved.
           </p>
         </motion.div>
 

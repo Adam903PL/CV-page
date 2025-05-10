@@ -105,6 +105,33 @@ Adam to 15-letni programista z pasją do tworzenia aplikacji zarówno po stronie
   - Repozytorium: [GitHub](https://github.com/Karman1818/TechniBank)
 - **Uwaga**: Współpraca z [Karman1818](https://github.com/Karman1818)
 
+
+5. TechniDev
+Opis: Napisana w React Native (Expo) aplikacja mobilna stworzona w około 4 godziny – głównie z nudów i chęci odświeżenia swoich umiejętności. Aplikacja jest skierowana do developerów oraz osób szukających developerów. Można w niej przeglądać profile programistów i filtrować je m.in. po imieniu, technologiach i innych cechach.
+Kod zawiera wiele uproszczeń i zdecydowanie nie nadaje się do produkcji – to bardziej proof of concept i szybki projekt „dla sportu”.
+Jeśli chcesz, możesz też dołączyć do bazy jako developer!
+
+Technologie: React Native (Expo)
+
+Typ: Aplikacja mobilna
+
+Linki:
+
+Repozytorium: [GitHub](https://github.com/Adam903PL/TechniDev)
+Uwaga: Projekt solo – czysty spontan zrobiony w wolnej chwili
+
+
+5. TaxMaster
+Opis: App napisana w NextJS, FastAPI,TreeJS + qwen3 w 24h. App internetowa służaca do nauki podatków pojeć prawnych itp. Zintegrowana z qwen3 ollama. Aby porawnie ja urchomić trzeba mieć modell najlepiej lokalnie.
+Stawiamy na nakue przez gry oraz rozwiązayanie testów króe nastepnie są analizowane przez ai ktre mówi co poszło dobrz ejak to naprawić i dalczego nie uzyskaliśmy maxa punktów
+
+Linki
+Repo Frontend: [GitHub](https://github.com/Adam903PL/TaxMaster-Frontend)
+Repo Backend: [GitHub](https://github.com/Adam903PL/TaxMaster-Backend)
+Uwaga: App napisania w 24h na CodeCamp
+
+
+
 ## 📊 Statystyki zawodowe
 - **Lata doświadczenia**: 2+
 - **Ukończone projekty**: 10+
@@ -138,7 +165,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = `You are a helpful assistant for Adam Pukaluk's portfolio website. You have access to information about Adam's skills, projects, and experience.
     Your role is to provide accurate information about Adam based on the data provided.
     If you're not sure about something or if the question is completely unrelated to Adam's portfolio, politely explain that you can only provide information about Adam's portfolio and experience.
-    Be friendly and professional in your responses.Answer in .md format`;
+    Be friendly and professional in your responses.Answer in .md format. `;
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },

@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { FaPhone, FaCode, FaGithub, FaMailBulk } from "react-icons/fa";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { Tooltip } from "react-tooltip";
 import useSWR from "swr";
 import Link from "next/link";
+import GithubSection from "./GitHubSection"; // Import the new component
 
 // Fetcher dla SWR
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -95,35 +96,7 @@ const skillVariants = {
   hover: { scale: 1.1, transition: { duration: 0.2 } },
 };
 
-const githubCardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.8, type: "spring", bounce: 0.4 },
-  },
-  hover: {
-    scale: 1.05,
-    boxShadow: "0px 0px 20px rgba(0, 189, 149, 0.7)",
-    transition: { duration: 0.3 },
-  },
-};
-
-const repoButtonVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  hover: {
-    scale: 1.05,
-    backgroundColor: "#00bd95",
-    transition: { duration: 0.3 },
-  },
-  tap: { scale: 0.95 },
-};
-
-const AboutMe: React.FC = () => {
-
-
+const AboutMe = () => {
   const title = "Adam Pukaluk - FullStack Developer";
   const skills = [
     "React",
@@ -154,11 +127,6 @@ const AboutMe: React.FC = () => {
   const [copyText, setCopyText] = useState("Copy E-Mail");
   const email = "pukaluk.adam505@gmail.com";
 
-  const buttonVariants = {
-    hover: { scale: 1.05, transition: { duration: 0.2 } },
-    tap: { scale: 0.95, transition: { duration: 0.2 } },
-  };
-
   const handleCopyEmail = (e) => {
     e.preventDefault(); // Zapobiega otwieraniu klienta poczty
     navigator.clipboard
@@ -177,8 +145,6 @@ const AboutMe: React.FC = () => {
       id="aboutme"
       className="relative overflow-hidden bg-[#171c22] min-h-screen"
     >
-
-
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-[#00bd95]/15 to-[#00FFC9]/15 rounded-full blur-3xl"
         variants={waveVariants}
@@ -319,66 +285,8 @@ const AboutMe: React.FC = () => {
             className="flex flex-col gap-8 w-full lg:w-1/2"
             variants={itemVariants}
           >
-            {/* GitHub Stats - na górze prawej kolumny, z mniejszą wysokością */}
-            <motion.div
-              className="bg-[#161B22] p-4 rounded-xl border border-[#30363D] shadow-xl"
-              variants={githubCardVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover="hover"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-white font-semibold text-lg mb-3 flex items-center justify-center gap-2">
-                <FaGithub className="text-[#00bd95] w-6 h-6" />
-                GitHub Stats
-              </h3>
-              {reposError && (
-                <p className="text-red-400">Failed to load GitHub data</p>
-              )}
-              {!reposData && !reposError && (
-                <p className="text-gray-300">Loading...</p>
-              )}
-              {reposData && (
-                <div className="flex flex-col gap-3 max-h-48 overflow-y-auto">
-                  <p className="text-gray-300 text-sm">
-                    Total Public Repos:{" "}
-                    <span className="text-[#00bd95] font-bold">
-                      {reposData.length}
-                    </span>
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {reposData && reposData.length > 0 ? (
-                      reposData.map((repo) => (
-                        <motion.div
-                          key={repo.id}
-                          className="flex items-center justify-between bg-[#20272F] p-2 rounded-lg"
-                          variants={itemVariants}
-                        >
-                          <span className="text-white text-sm truncate">
-                            {repo.name}
-                          </span>
-                          <motion.a
-                            href={repo.html_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-[#00bd95] text-white px-3 py-1 rounded-full text-sm font-medium"
-                            variants={repoButtonVariants}
-                            initial="hidden"
-                            animate="visible"
-                            whileHover="hover"
-                            whileTap="tap"
-                          >
-                            Visit
-                          </motion.a>
-                        </motion.div>
-                      ))
-                    ) : (
-                      <p className="text-gray-300 text-center col-span-2"></p>
-                    )}
-                  </div>
-                </div>
-              )}
-            </motion.div>
+            {/* New GitHub Section with Three.js */}
+            <GithubSection reposData={reposData} reposError={reposError} />
 
             <motion.div
               className="bg-[#161B22] p-5 rounded-xl border border-[#30363D] shadow-xl"

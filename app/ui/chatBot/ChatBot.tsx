@@ -8,7 +8,7 @@ import { callLanguageModelAPI } from "@/app/lib/action";
 import LoadingDots from "../LoadingDots";
 import ReactMarkdown from "react-markdown";
 
-const ChatBot = () => {
+const   ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: "Hi, ask me any question about Adam", sender: "bot", isLoading: false },
